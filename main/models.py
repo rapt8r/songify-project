@@ -9,7 +9,7 @@ class Category(models.Model):
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
     description = models.TextField(blank=True, null=True)
     slug = models.SlugField(max_length=32)
     profile_picture = models.ImageField(upload_to='author_profile_picture_images/')

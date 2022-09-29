@@ -12,6 +12,8 @@ DUMMY_CATEGORY = [
     {'name' : 'RAP'},
     {'name' : 'ROCK'},
     {'name' : 'TRAP'},
+    {'name': 'FOCUS'},
+    {'name': 'GRAVEDIGGER'},
     {'name' : 'HIP-HOP'},
     {'name' : 'LATINO'},
     {'name' : 'KOŚCIELNA'},
