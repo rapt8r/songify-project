@@ -30,6 +30,9 @@ button
 .card-min-marg-top p {
   margin-bottom: 0;
 }
+.testowa {
+  margin: 60px !important;
+}
 
 .rounded-50{
   border-radius: 50%;

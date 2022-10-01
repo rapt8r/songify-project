@@ -38,29 +38,37 @@
 
     {#    < ! ╌  new song ╌>#}
     <div class="container container-fluid ">
-        <p class="display-5">Najnowszy utwór</p>
-    </div>
+        <div class="row">
 
-    <div class="container"
-         style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
-        <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
-            <div class="col-lg-4">
-                <img src="/media/song_cover_images/dev_tools/src/bones.png"
-                     class="img-fluid rounded-50 shadow profile-pic"
+            <div class="col-md-12">
+                <p class="display-5" style="padding-top: 60px">Najnowszy utwór</p>
 
-                     alt="...">
+
+                    <div class="container"
+                         style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+                        <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+                            <div class="col-lg-4">
+                                <img src="{{ trending_song.cover_image.url }}" class="img-fluid shadow profile-pic"
+                                     alt="...">
+                            </div>
+                            <div class="col-lg-8 text-left card-min-marg-top">
+                                <h5 class="fs-1 lh-1">{{ trending_song.title }}</h5>
+                                {% for author in trending_song.author.all %}
+                                    <p class="fs-5 lh-5">{{ author.name }}</p>
+                                {% endfor %}
+                                {% for category in trending_song.category.all %}
+                                   <p class="fs-7 lh-7">{{ category.name }}</p>
+                                {%  endfor %}
+{#                                <a href="{% url 'song_page' slug=song.slug %}">#}
+                                    <button class="btn btn-light btn-lg card-btn">Odtwórz</button>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
             </div>
-            <div class="col-lg-8 text-left">
-                <h5 class="fs-1 lh-1">Tytuł piosenki</h5>
-                <p class="fs-5 lh-5">Author (link)</p>
-                <p class="fs-7 lh-7">Category</p>
-                <a href="#">
-                    <button class="btn btn-light btn-lg">Odtwórz</button>
-                </a>
-
-            </div>
-        </div>
-    </div>
     {#    listy#}
 
     <div class="container container-fluid ">

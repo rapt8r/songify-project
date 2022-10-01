@@ -19,7 +19,7 @@ def MainPage(request):
 
     context_dir = {
         'trending_song': Song.objects.all().order_by('-number_of_plays')[0],
-        'top_songs': Song.objects.all().order_by('-number_of_plays')[0:3],
+        'top_songs': Song.objects.all().order_by('-number_of_plays')[1:4],
         'recommended_artists': choices(Author.objects.all(), k=2),
         'motd': choice(MOTD_TEXT),
         'top_playlist': Playlist.objects.all()
