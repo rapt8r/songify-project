@@ -1,0 +1,51 @@
+/*
+Costom styles
+ */
+.test {
+
+}
+body.card {
+    background-color: #180806;
+    color: white;
+}
+.bg-dark {
+  --bs-bg-opacity: 1;
+  background-color: #0c0909;
+}
+card {
+
+}
+/*
+button
+ */
+.btn.btn-light.btn-lg {
+  width: 60%;
+  position: absolute;
+  bottom: 50px;
+}
+
+.col-lg-8.text-left.card-min-marg-top {
+  margin-top: -50px;
+}
+.card-min-marg-top p {
+  margin-bottom: 0;
+}
+
+.rounded-50{
+  border-radius: 50%;
+}
+/*
+main_page
+ */
+
+/*
+song_page
+ */
+
+/*
+author
+ */
+
+/*
+media
+ */
