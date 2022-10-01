@@ -19,6 +19,17 @@ button
   position: absolute;
   bottom: 50px;
 }
+
+.col-lg-8.text-left.card-min-marg-top {
+  margin-top: -50px;
+}
+.card-min-marg-top p {
+  margin-bottom: 0;
+}
+
+.rounded-50{
+  border-radius: 50%;
+}
 /*
 main_page
  */
