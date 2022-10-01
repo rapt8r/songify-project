@@ -22,7 +22,7 @@ from main.views import MainPage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('search/', SearchPage.as_view(), name='SearchPage')
+    path('search/', SearchPage.as_view(), name='SearchPage'),
     path('', MainPage, name='MainPage'),
 ]
 if settings.DEBUG:
