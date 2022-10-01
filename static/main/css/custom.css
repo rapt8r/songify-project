@@ -4,9 +4,13 @@ Costom styles
 .test {
 
 }
-body {
-    background-color: #2B110D;
+body.card {
+    background-color: #180806;
     color: white;
+}
+.bg-dark {
+  --bs-bg-opacity: 1;
+  background-color: #0c0909;
 }
 card {
 

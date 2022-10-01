@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from main.models import Song
 from random import choice, choices
-from main.models import Author
+from main.models import Author, Playlist
 
 # Create your views here.
 
@@ -19,8 +19,9 @@ def MainPage(request):
 
     context_dir = {
         'trending_song': Song.objects.all().order_by('-number_of_plays')[0],
-        'top_songs': Song.objects.all().order_by('-number_of_plays')[0:5],
+        'top_songs': Song.objects.all().order_by('-number_of_plays')[0:3],
         'recommended_artists': choices(Author.objects.all(), k=2),
-        'motd': choice(MOTD_TEXT)
+        'motd': choice(MOTD_TEXT),
+        'top_playlist': Playlist.objects.all()
     }
     return render(request, template_name='main/main_page.html', context=context_dir)
