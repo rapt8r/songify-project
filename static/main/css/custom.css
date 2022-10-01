@@ -1,8 +1,23 @@
 /*
 Costom styles
  */
+.test {
+
+}
 body {
     background-color: #2B110D;
+    color: white;
+}
+card {
+
+}
+/*
+button
+ */
+.btn.btn-light.btn-lg {
+  width: 60%;
+  position: absolute;
+  bottom: 50px;
 }
 /*
 main_page

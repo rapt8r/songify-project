@@ -5,14 +5,205 @@
 {% endblock %}
 
 {% block page_content %}
-    <div class="container mt-5">
-        <div class="row mt-12 text-white gy-5">
-            <p class="display-3">Najnowszy utwór</p>
-            {% for song in top_songs %}
-                <div class="col">
-                    test
+{% load static %}
+{#nav#}
+
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+            <div class="container container-fluid ">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'main/logo.png' %}" alt="Logo" width="40" height="40"
+                         class="d-inline-block align-text-middle" style="filter: invert(1)">
+                    Songify
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'main_page' %}">Strona główna</a>
+                        </li>
+
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Szukaj" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Szukaj</button>
+                    </form>
                 </div>
-            {% endfor %}
+            </div>
+        </nav>
+
+
+
+{#    < ! ╌  new song ╌>#}
+    <div class="container container-fluid ">
+        <p class="display-5">Najnowszy utwór</p>
+    </div>
+
+    <div class="container" style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+        <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+            <div class="col-lg-4">
+                <img src="/media/song_cover_images/dev_tools/src/bones.png" class="img-fluid rounded-2 shadow profile-pic"
+
+                     alt="...">
+            </div>
+            <div class="col-lg-8 text-left">
+                <h5 class="fs-1 lh-1">Tytuł piosenki</h5>
+                <p class="fs-5 lh-5">Author (link)</p>
+                <p class="fs-7 lh-7">Category</p>
+                <a href="#"><button class="btn btn-light btn-lg">Odtwórz</button></a>
+
+            </div>
         </div>
     </div>
+{#    listy#}
+
+    <div class="container container-fluid ">
+      <div class="row ">
+
+        <div class="col-md-6">
+           <p class="display-5">Top lista</p>
+
+        <div class="container" style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+            <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+                <div class="col-lg-4">
+                    <img src="/media/song_cover_images/dev_tools/src/bones.png" class="img-fluid rounded-2 shadow profile-pic" alt="...">
+                </div>
+                <div class="col-lg-8 text-left">
+                    <h5 class="fs-1 lh-1">Tytuł piosenki</h5>
+                    <p class="fs-5 lh-5">Author (link)</p>
+                    <p class="fs-7 lh-7">Category</p>
+                    <a href="#"><button class="btn btn-light btn-lg">Odtwórz</button></a>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+        <div class="col-md-6">
+           <p class="display-5">Polecane playlisty</p>
+
+        <div class="container" style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+            <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+                <div class="col-lg-4">
+                    <img src="/media/song_cover_images/dev_tools/src/bones.png" class="img-fluid rounded-2 shadow profile-pic" alt="...">
+                </div>
+                <div class="col-lg-8 text-left">
+                    <h5 class="fs-1 lh-1">Tytuł piosenki</h5>
+                    <p class="fs-5 lh-5">Author (link)</p>
+                    <p class="fs-7 lh-7">Category</p>
+                    <a href="#"><button class="btn btn-light btn-lg">Odtwórz</button></a>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+{#new artist#}
+
+    <div class="container container-fluid ">
+        <p class="display-5">Najnowszy Artysta</p>
+    </div>
+
+    <div class="container" style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+        <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+            <div class="col-lg-4">
+                <img src="/media/author_profile_picture_images/dev_tools/src/undertaker.png" class="img-fluid rounded-2 shadow profile-pic"
+
+                     alt="...">
+            </div>
+            <div class="col-lg-8 text-left">
+                <h5 class="fs-1 lh-1">Author</h5>
+                <p class="fs-5 lh-5">Kraj pochodzenia</p>
+                <a href="#"><button class="btn btn-light btn-lg">Odtwórz</button></a>
+            </div>
+        </div>
+    </div>
+
+{#{    listy autorów? }#}
+
+    <div class="container container-fluid ">
+      <div class="row ">
+
+        <div class="col-md-6">
+           <p class="display-5">Top lista</p>
+
+        <div class="container" style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+            <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+                <div class="col-lg-4">
+                    <img src="/media/author_profile_picture_images/dev_tools/src/undertaker.png" class="img-fluid rounded-2 shadow profile-pic" alt="...">
+                </div>
+                    <div class="col-lg-8 text-left">
+                    <h5 class="fs-1 lh-1">Author</h5>
+                    <p class="fs-5 lh-5">Kraj pochodzenia</p>
+                    <a href="#"><button class="btn btn-light btn-lg">Zobacz</button></a>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+        <div class="col-md-6">
+           <p class="display-5">Polecane playlisty</p>
+
+        <div class="container" style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+            <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+                <div class="col-lg-4">
+                    <img src="/media/author_profile_picture_images/dev_tools/src/undertaker.png" class="img-fluid rounded-2 shadow profile-pic" alt="...">
+                </div>
+                    <div class="col-lg-8 text-left">
+                    <h5 class="fs-1 lh-1">Author</h5>
+                    <p class="fs-5 lh-5">Kraj pochodzenia</p>
+                    <a href="#"><button class="btn btn-light btn-lg">Zobacz</button></a>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+{#< ! ╌  test ╌>#}
+{#        <div class="text-light bg-dark">#}
+{#            <div class="container mt-5">#}
+{#                <div class="row mt-12 text-white gy-5">#}
+{#                    <p class="display-3">Najnowszy utwór</p>#}
+{#    #}
+{#                    {% for song in top_songs %}#}
+{#                        <div class="card border-0 text-center mx-6 my-6 text-light no-padding bg-dark" style="max-width: 11rem;">#}
+{#                            <img src="{{ song.image.url }}" class="card-img-top">#}
+{#                            <div class="card-body">#}
+{#                                <h5 class="card-title">{{ song.title }}</h5>#}
+{#    #}
+{#                                <a class="text-reset text-decoration-none" href="#"><p class="card-text">{{ song.author }}</p></a>#}
+{#                                <a href="#" class="btn btn-primary">Słuchaj</a>#}
+                                    {#                        <a class="text-reset text-decoration-none" href="{% url 'author_page' slug=song.author.slug %}"><p class="card-text">{{ song.author }}</p></a>#}
+                                    {#                        <a href="{% url 'song_page' slug=song.slug %}" class="btn btn-primary">Słuchaj</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="container">#}
+{#          <div class="row">#}
+{#            <div class="col-lg-4 col-md-12">#}
+{#                test#}
+{#            </div>#}
+{#    #}
+{#            <div class="col-lg-4 col-md-6">#}
+{#                test#}
+{#            </div>#}
+{#    #}
+{#            <div class="col-lg-4 col-md-6">#}
+{#                test#}
+{#            </div>#}
+{#          </div>#}
+{#    </div>#}
+{#< ! ╌  end test ╌>#}
+
 {% endblock %}
