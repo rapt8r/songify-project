@@ -1,11 +1,12 @@
 {% extends 'main/root_template.html' %}
+{% load static %}
 
 {% block page_title %}
     <title>{{ motd }}</title>
 {% endblock %}
 
 {% block page_content %}
-    {% load static %}
+
 
     {% include 'main/includes/trending_song.html' %}
     {#    listy#}
