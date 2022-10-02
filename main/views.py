@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
 from main.models import Song, Author, Playlist
 from random import choice, choices
 
@@ -36,3 +37,7 @@ def MainPage(request):
         'top_playlist': Playlist.objects.all()
     }
     return render(request, template_name='main/main_page.html', context=context_dir)
+
+class AllSongsPage(ListView):
+    model = Song
+    template_name = 'main/all_songs_page.html'

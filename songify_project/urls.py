@@ -23,6 +23,7 @@ from main.views import MainPage
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', SearchPage.as_view(), name='SearchPage'),
+    path('all-songs/', AllSongsPage.as_view(), name='all_songs'),
     path('', MainPage, name='MainPage'),
 ]
 if settings.DEBUG:
