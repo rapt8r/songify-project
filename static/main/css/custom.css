@@ -46,6 +46,21 @@ song_page
  */
 
 /*
+/*
+all songs
+ */
+.class_list .row img {
+  max-height: 100px;
+  width: auto;
+}
+.row.row_list::after {
+  width: 100%;
+  background-color: #5e4c4c;
+  height: 1px;
+  content: '';
+  margin: 5px 10px;
+}
+/*
 author
  */
 

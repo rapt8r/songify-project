@@ -41,3 +41,4 @@ def MainPage(request):
 class AllSongsPage(ListView):
     model = Song
     template_name = 'main/all_songs_page.html'
+    context_object_name = 'list'

@@ -7,9 +7,29 @@
 
 {% block page_content %}
 
-    <div class="container container-fluid" style="margin-top: 80px">
+    <div class="container container-fluid class_list" style="margin-top: 80px">
+        <p class="display-5">Wszystkie utwory</p>
+
         <div class="row">
-            <p>Test</p>
+            {% for song in list %}
+
+
+                <div class="row row_list">
+                    <div class="col-lg-3 col-md-12">
+                        <img src="{{ song.cover_image.url }}">
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <p>{{ song.title }}</p>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <a>Hardcoded author</a>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                    </div>
+                </div>
+
+            {% endfor %}
+
         </div>
     </div>
 
