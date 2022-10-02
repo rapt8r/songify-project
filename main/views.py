@@ -2,7 +2,10 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from main.models import Song, Author, Playlist
 from random import choice, choices
-
+from django.views.generic import CreateView
+from .forms import UserRegisterForm
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 # Create your views here.
 
 class SearchPage(TemplateView):
@@ -15,6 +18,11 @@ class SearchPage(TemplateView):
         context['authors_search_result'] = Author.objects.filter(name__contains=query).all()
         context['playlists_search_result'] = Playlist.objects.filter(name__contains=query).all()
         return self.render_to_response(context)
+class RegisterPage(SuccessMessageMixin, CreateView):
+    template_name = 'main/register.html'
+    form_class = UserRegisterForm
+    success_url = reverse_lazy('login')
+    success_message = 'Zarejestrowano pomyślnie'
 
 MOTD_TEXT = [
     'Songify - to co lubisz, tak jak chcesz',
