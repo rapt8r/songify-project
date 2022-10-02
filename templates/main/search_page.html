@@ -1,0 +1,9 @@
+{% for song in songs_search_result %}
+    <p>{{ song.title }}</p>
+{% endfor %}
+{% for author in authors_search_result %}
+    <p>{{ author.name }}</p>
+{% endfor %}
+{% for playlist in playlists_search_result %}
+    <p>{{ playlist.name }}</p>
+{% endfor %}
