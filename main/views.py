@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from main.models import Song, Author, Playlist
 from random import choice, choices
-
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 # Create your views here.
 
 class SearchPage(TemplateView):
@@ -15,6 +16,7 @@ class SearchPage(TemplateView):
         context['authors_search_result'] = Author.objects.filter(name__contains=query).all()
         context['playlists_search_result'] = Playlist.objects.filter(name__contains=query).all()
         return self.render_to_response(context)
+
 
 MOTD_TEXT = [
     'Songify - to co lubisz, tak jak chcesz',
