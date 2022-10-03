@@ -1,12 +1,79 @@
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+{% extends 'main/root_template.html' %}
+{% load static %}
+{% block page_title %}
+    <title>Zaloguj się do Songify</title>
+{% endblock %}
+{% block page_content %}
+    <div id="fs-bg-img" class='container-fluid vh-100 wh-100 g-0'
+         style="transition: background 1s linear; background-image: url({% static 'main/login_page_bg/1.jpg' %}); background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="container-fluid vh-100 wh-100 g-0 d-flex align-items-center"
+             style="backdrop-filter: blur(5px) brightness(50%)">
+            <div class="container">
+                <div class="row gy-3">
+                    <div class="col-lg-6 align-self-center">
+                        <h1 class="display-2 fw-semibold">Songify</h1>
+                        <p class="fs-2">Dołącz do społeczności ludzi uwielbiających muzykę. Słuchaj ulubionych
+                            wykonawców bezpłatnie w Songify</p>
+                    </div>
+                    <div id='login-card' class="col-lg-6 p-5 text-bg-light rounded-4 shadow">
+                        {% if user.is_authenticated %}
+                            <p class="fs-3">Jesteś już zalogowany jako</p>
+                            <p class="fs-1 fw-semibold">{{ user.username }}</p>
+                            <a href="{% url 'LogoutPage' %}">
+                                <button class="btn btn-primary btn-lg">Wyloguj się</button>
+                            </a>
+                        {% else %}
+                            <p class="fs-1">Zaloguj się</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="{{ form.username.id_for_label }}" class="form-label">Nazwa
+                                        użytkownika</label>
+                                    {{ form.username }}
+                                </div>
+                                <div class="mb-3">
+                                    <label for="{{ form.password.id_for_label }}" class="form-label">Hasło</label>
+                                    {{ form.password }}
+                                </div>
+                                <button type="submit" class="btn btn-lg btn-primary mb-3">Zaloguj się</button>
+                            </form>
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger fw-bold d-flex align-items-center alert-dismissible fade show"
+                                         role="alert">
+                                        {{ error }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block page_custom_js %}
+    <script>
+        var images = [];
+
+        images[0] = ['{% static 'main/login_page_bg/1.jpg' %}'];
+        images[1] = ['{% static 'main/login_page_bg/2.jpg' %}'];
+        images[2] = ['{% static 'main/login_page_bg/3.jpg' %}'];
+        images[3] = ['{% static 'main/login_page_bg/4.jpg' %}'];
+        var index = 0;
+        function change() {
+            document.getElementById("fs-bg-img").style.backgroundImage = `url(${images[index]})`;
+            if (index == 3) {
+                index = 0;
+            } else {
+                index++;
+            }
+
+            setTimeout(change, 5000);
+        }
+        window.onload = change();
+    </script>
+{% endblock %}

@@ -20,13 +20,17 @@ from django.conf.urls.static import static
 from main.views import SearchPage
 from main.views import MainPage
 from main.views import RegisterPage
+from django.contrib.auth import views as auth_views
+from main.forms import AuthForm
 from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', SearchPage.as_view(), name='SearchPage'),
     path('', MainPage, name='MainPage'),
-    path("", include("django.contrib.auth.urls")),
     path("register/", RegisterPage.as_view(), name='RegisterPage'),
+    path("login/", auth_views.LoginView.as_view(authentication_form=AuthForm), name='LoginPage'),
+    path("logout/", auth_views.LogoutView.as_view(), name='LogoutPage'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

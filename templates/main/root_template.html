@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="{% static 'main/css/custom.css' %}">
 
 </head>
-<body  class="card text-light">
-{% include 'main/includes/navbar.html' %}
+<body class="text-bg-dark">
 {% block page_content %}
 
 {% endblock %}
@@ -22,5 +21,8 @@
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
 <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+{% block page_custom_js %}
+
+{% endblock %}
 </body>
 </html>

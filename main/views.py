@@ -3,9 +3,10 @@ from django.views.generic import TemplateView
 from main.models import Song, Author, Playlist
 from random import choice, choices
 from django.views.generic import CreateView
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, AuthForm
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import LoginView
 # Create your views here.
 
 class SearchPage(TemplateView):
