@@ -5,7 +5,7 @@
 {% endblock %}
 {% block page_content %}
     <div id="fs-bg-img" class='container-fluid vh-100 wh-100 g-0'
-         style="transition: background 1s linear; background-image: url({% static 'main/login_page_bg/1.jpg' %}); background-size: cover; background-repeat: no-repeat; background-position: center;">
+         style="transition: background 1s ease-in-out; background-image: url({% static 'main/login_page_bg/1.jpg' %}); background-size: cover; background-repeat: no-repeat; background-position: center;">
         <div class="container-fluid vh-100 wh-100 g-0 d-flex align-items-center"
              style="backdrop-filter: blur(5px) brightness(50%)">
             <div class="container">
@@ -73,7 +73,7 @@
                 index++;
             }
 
-            setTimeout(change, 5000);
+            setTimeout(change, 8000);
         }
         window.onload = change();
     </script>
