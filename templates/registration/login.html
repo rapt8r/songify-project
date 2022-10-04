@@ -1,12 +1,96 @@
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+{% extends 'main/root_template.html' %}
+{% load static %}
+{% block page_title %}
+    <title>Zaloguj się do Songify</title>
+{% endblock %}
+{% block page_content %}
+    <div id="fs-bg-img" class='container-fluid vh-100 wh-100 g-0'
+         style="transition: background 1s ease-in-out; background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="container-fluid vh-100 wh-100 g-0 d-flex align-items-center"
+             style="backdrop-filter: blur(5px) brightness(50%)">
+            <!-- Lewa część, nazwa strony i tekst -->
+            <div class="container">
+                <div class="row gy-3">
+                    <div class="col-lg-6 align-self-center">
+                        <h1 class="display-2 fw-semibold">Songify</h1>
+                        <p class="fs-2">Dołącz do społeczności ludzi uwielbiających muzykę. Słuchaj ulubionych
+                            wykonawców bezpłatnie w Songify</p>
+                        <p class="fs-3 fst-italic">"When you enter the party go ahead and clap!"</p>
+                    </div>
+                    <!-- Karta z formularzem logowania -->
+                    <div class="col-lg-6 p-5 text-bg-light rounded-4 shadow">
+                        {% if messages %}
+                            <div class="alert alert-success fw-bold d-flex align-items-center alert-dismissible fade show"
+                                 role="alert">
+                                {% for message in messages %}
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <p class="fs-3">Jesteś już zalogowany jako</p>
+                            <p class="fs-1 fw-semibold">{{ user.username }}</p>
+                            <a href="{% url 'LogoutPage' %}">
+                                <button class="btn btn-primary btn-lg">Wyloguj się</button>
+                            </a>
+                        {% else %}
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger fw-bold d-flex align-items-center alert-dismissible fade show"
+                                         role="alert">
+                                        {{ error }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <p class="fs-1">Zaloguj się</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="{{ form.username.id_for_label }}" class="form-label">Nazwa
+                                        użytkownika</label>
+                                    {{ form.username }}
+                                </div>
+                                <div class="mb-3">
+                                    <label for="{{ form.password.id_for_label }}" class="form-label">Hasło</label>
+                                    {{ form.password }}
+                                </div>
+                                <div id="registerHelp" class="form-text fs-6 mb-3">Nie masz konta? <a
+                                        href="{% url 'RegisterPage' %}">Zarejestruj się</a></div>
+                                <button type="submit" class="btn btn-lg btn-primary mb-3">Zaloguj się</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block page_custom_js %}
+    <script>
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        var images = [];
+
+        images[0] = ['{% static 'main/login_page_bg/1.jpg' %}'];
+        images[1] = ['{% static 'main/login_page_bg/2.jpg' %}'];
+        images[2] = ['{% static 'main/login_page_bg/3.jpg' %}'];
+        images[3] = ['{% static 'main/login_page_bg/4.jpg' %}'];
+        images[4] = ['{% static 'main/login_page_bg/5.jpg' %}'];
+        images[5] = ['{% static 'main/login_page_bg/6.jpg' %}'];
+        images[6] = ['{% static 'main/login_page_bg/7.jpg' %}'];
+
+        function change() {
+            document.getElementById("fs-bg-img").style.backgroundImage = `url(${images[getRandomInt(6)]})`;
+            setTimeout(change, 8000);
+        }
+
+        window.onload = change();
+    </script>
+{% endblock %}

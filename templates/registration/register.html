@@ -1,0 +1,87 @@
+{% extends 'main/root_template.html' %}
+{% load static %}
+{% block page_title %}
+    <title>Zarejestruj się w Songify</title>
+{% endblock %}
+{% block page_content %}
+    <div id="fs-bg-img" class='container-fluid vh-100 wh-100 g-0'
+         style="transition: background 1s ease-in-out; background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="container-fluid vh-100 wh-100 g-0 d-flex align-items-center"
+             style="backdrop-filter: blur(5px) brightness(50%)">
+            <div class="container">
+                <div class="row gy-3">
+                    <div class="col-lg-6 align-self-center">
+                        <h1 class="display-2 fw-semibold">Songify</h1>
+                        <p class="fs-2">Dołącz do społeczności ludzi uwielbiających muzykę. Słuchaj ulubionych
+                            wykonawców bezpłatnie w Songify</p>
+                        <p class="fs-3 fst-italic">"When you enter the party go ahead and clap!"</p>
+                    </div>
+                    <div class="col-lg-6 p-5 text-bg-light rounded-4 shadow">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger fw-bold d-flex align-items-center alert-dismissible fade show"
+                                     role="alert">
+                                    {{ error|safe }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <p class="fs-1">Zarejestruj się</p>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="{{ form.username.id_for_label }}" class="form-label">Nazwa
+                                    użytkownika</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="{{ form.email.id_for_label }}" class="form-label">Adres e-mail</label>
+                                {{ form.email }}
+                                <div class="form-text fs-6 mb-3">Nie udostępniamy twojego adresu e-mail firmom
+                                    trzecim.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="{{ form.password1.id_for_label }}" class="form-label">Hasło</label>
+                                {{ form.password1 }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="{{ form.password2.id_for_label }}" class="form-label">Powtórz
+                                    hasło</label>
+                                {{ form.password2 }}
+                            </div>
+                            <div class="form-text fs-6 mb-3">Masz już konto? <a
+                                    href="{% url 'LoginPage' %}">Zaloguj się</a></div>
+                            <button type="submit" class="btn btn-lg btn-primary mb-3">Zarejestruj się</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block page_custom_js %}
+    <script>
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        var images = [];
+
+        images[0] = ['{% static 'main/login_page_bg/1.jpg' %}'];
+        images[1] = ['{% static 'main/login_page_bg/2.jpg' %}'];
+        images[2] = ['{% static 'main/login_page_bg/3.jpg' %}'];
+        images[3] = ['{% static 'main/login_page_bg/4.jpg' %}'];
+        images[4] = ['{% static 'main/login_page_bg/5.jpg' %}'];
+        images[5] = ['{% static 'main/login_page_bg/6.jpg' %}'];
+        images[6] = ['{% static 'main/login_page_bg/7.jpg' %}'];
+
+        function change() {
+            document.getElementById("fs-bg-img").style.backgroundImage = `url(${images[getRandomInt(6)]})`;
+            setTimeout(change, 8000);
+        }
+
+        window.onload = change();
+    </script>
+{% endblock %}
