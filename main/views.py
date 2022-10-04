@@ -3,12 +3,11 @@ from django.views.generic import TemplateView
 from main.models import Song, Author, Playlist
 from random import choice, choices
 from django.views.generic import CreateView
-from .forms import UserRegisterForm, AuthForm
+from .forms import UserRegisterForm
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.views import LoginView
-# Create your views here.
-
+from django.contrib.auth.views import LogoutView, LoginView
+from main.forms import AuthForm
 class SearchPage(TemplateView):
     template_name = 'main/search_page.html'
     def get(self, request, *args, **kwargs):
@@ -20,11 +19,17 @@ class SearchPage(TemplateView):
         context['playlists_search_result'] = Playlist.objects.filter(name__contains=query).all()
         return self.render_to_response(context)
 class RegisterPage(SuccessMessageMixin, CreateView):
-    template_name = 'main/register.html'
-    form_class = UserRegisterForm
-    success_url = reverse_lazy('login')
-    success_message = 'Zarejestrowano pomyślnie'
+  template_name = 'registration/register.html'
+  success_url = reverse_lazy('LoginPage')
+  form_class = UserRegisterForm
+  success_message = "Zarejestrowano pomyślnie!"
 
+class LoginPage(SuccessMessageMixin, LoginView):
+    template_name = 'registration/login.html'
+    authentication_form = AuthForm
+class LogoutPage(SuccessMessageMixin, LogoutView):
+    success_message = 'Zostałeś wylogowany'
+    next_page = 'LoginPage'
 MOTD_TEXT = [
     'Songify - to co lubisz, tak jak chcesz',
     'Songify - zabierz ze sobą',
