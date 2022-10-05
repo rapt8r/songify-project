@@ -7,7 +7,7 @@
 
 {% block page_content %}
 
-    <div class="container container-fluid class_list" style="margin-top: 80px">
+    <div class="container class_list" style="margin-top: 80px">
         <p class="display-5">Wszystkie utwory</p>
 
         <div class="row">
@@ -15,16 +15,17 @@
 
 
                 <div class="row row_list">
-                    <div class="col-lg-3 col-md-12">
-                        <img src="{{ song.cover_image.url }}">
+                    <div class="col-sm-3">
+                        <img src="{{ song.cover_image.url }}" class="img-fluid img-thumbnail">
                     </div>
-                    <div class="col-lg-3 col-md-12">
-                        <p>{{ song.title }}</p>
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <a>{{ song.title }}</a>
                     </div>
-                    <div class="col-lg-3 col-md-12">
+                    <div class="col-sm-3 d-flex align-items-center">
                         <a>Hardcoded author</a>
                     </div>
-                    <div class="col-lg-3 col-md-12">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <i class="bi bi-folder-plus"></i>
                     </div>
                 </div>
 
