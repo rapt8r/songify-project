@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from main.views import AllSongsPage
 from main.views import SearchPage
 from main.views import MainPage
 from main.views import RegisterPage
@@ -27,6 +28,7 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', SearchPage.as_view(), name='SearchPage'),
+    path('all-songs/', AllSongsPage.as_view(), name='all_songs'),
     path('', MainPage, name='MainPage'),
 
 
