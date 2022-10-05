@@ -22,7 +22,9 @@
                         <a>{{ song.title }}</a>
                     </div>
                     <div class="col-sm-3 d-flex align-items-center">
-                        <a>Hardcoded author</a>
+                                {% for author in song.author.all %}
+                                    <a class="text-white text-decoration-none">{{ author.name }}</a>
+                                {% endfor %}
                     </div>
                     <div class="col-sm-3 d-flex align-items-center">
                         <i class="bi bi-folder-plus"></i>
