@@ -1,0 +1,83 @@
+{% extends 'main/root_template.html' %}
+{% load static %}
+
+{% block page_title %}
+    <title>{{ motd }}</title>
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="container class_list" style="margin-top: 80px">
+        <p class="display-5">Wykonawcy</p>
+
+
+            {% for author in list %}
+
+
+                <div class="row row_list">
+                    <div class="col-sm-3">
+                        <img src="{{ author.profile_picture.url }}" class="img-fluid img-thumbnail">
+                    </div>
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <a>{{ author.name }}</a>
+                    </div>
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <a>{{ author.description }}</a>
+                    </div>
+{#                    <div class="col-sm-3 d-flex align-items-center">#}
+{#                                {% for author in song.author.all %}#}
+{#                                    <a class="text-white text-decoration-none">{{ author.name }}</a>#}
+{#                                {% endfor %}#}
+{#                    </div>#}
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <i class="bi bi-folder-plus"></i>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+    {#< ! ╌  test ╌>#}
+    {#        <div class="text-light bg-dark">#}
+    {#            <div class="container mt-5">#}
+    {#                <div class="row mt-12 text-white gy-5">#}
+    {#                    <p class="display-3">Najnowszy utwór</p>#}
+    {#    #}
+    {#                    {% for song in top_songs %}#}
+    {#                        <div class="card border-0 text-center mx-6 my-6 text-light no-padding bg-dark" style="max-width: 11rem;">#}
+    {#                            <img src="{{ song.image.url }}" class="card-img-top">#}
+    {#                            <div class="card-body">#}
+    {#                                <h5 class="card-title">{{ song.title }}</h5>#}
+    {#    #}
+    {#                                <a class="text-reset text-decoration-none" href="#"><p class="card-text">{{ song.author }}</p></a>#}
+    {#                                <a href="#" class="btn btn-primary">Słuchaj</a>#}
+    {#                        <a class="text-reset text-decoration-none" href="{% url 'author_page' slug=song.author.slug %}"><p class="card-text">{{ song.author }}</p></a>#}
+    {#                        <a href="{% url 'song_page' slug=song.slug %}" class="btn btn-primary">Słuchaj</a>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    {% endfor %}#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="container">#}
+    {#          <div class="row">#}
+    {#            <div class="col-lg-4 col-md-12">#}
+    {#                test#}
+    {#            </div>#}
+    {#    #}
+    {#            <div class="col-lg-4 col-md-6">#}
+    {#                test#}
+    {#            </div>#}
+    {#    #}
+    {#            <div class="col-lg-4 col-md-6">#}
+    {#                test#}
+    {#            </div>#}
+    {#          </div>#}
+    {#    </div>#}
+    {#< ! ╌  end test ╌>#}
+
+
+{% endblock %}

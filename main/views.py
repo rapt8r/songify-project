@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, ListView
 from main.models import Song, Author, Playlist
 from random import choice, choices
 from django.views.generic import CreateView
@@ -50,8 +50,16 @@ def MainPage(request):
         'top_playlist': Playlist.objects.all()
     }
     return render(request, template_name='main/main_page.html', context=context_dir)
+
+
 class AuthorPage(DetailView):
     model = Author
     template_name = 'main/author_page.html'
     slug_field = 'slug'
     context_object_name = 'author'
+
+
+class AllAuthorsPage(ListView):
+    model = Author
+    template_name = 'main/all_authors_page.html'
+    context_object_name = 'list'
