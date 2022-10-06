@@ -22,6 +22,7 @@ from main.views import MainPage
 from main.views import RegisterPage
 from main.views import LogoutPage
 from main.views import LoginPage
+from main.views import AuthorPage
 
 from django.urls import include
 urlpatterns = [
@@ -32,6 +33,7 @@ urlpatterns = [
 
     path("register/", RegisterPage.as_view(), name='RegisterPage'),
     path("login/", LoginPage.as_view(), name='LoginPage'),
+    path('authors/<slug:slug>', AuthorPage.as_view(), name='author_page'),
     path("logout/", LogoutPage.as_view(), name='LogoutPage'),
 
 ]
