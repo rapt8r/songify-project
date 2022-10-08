@@ -1,7 +1,7 @@
 {% extends 'main/root_template.html' %}
 {% load static %}
 {% block page_title %}
-    <title>Zaloguj się do Songify</title>
+    <title>Sign in - Songify </title>
 {% endblock %}
 {% block page_content %}
     <div id="fs-bg-img" class='container-fluid vh-100 wh-100 g-0'
@@ -13,7 +13,7 @@
                 <div class="row gy-3">
                     <div class="col-lg-6 align-self-center text-white">
                         <h1 class="display-2 fw-semibold">Songify</h1>
-                        <p class="fs-2">Ogromna ilość świetnej muzyki, dostępna dla Ciebie, wszędzie.</p>
+                        <p class="fs-2">Join the biggest community of music lovers. Listen to your favourite artists at Songify for free.</p>
                         <p class="fs-3 fst-italic">"When you enter the party go ahead and clap!"</p>
                     </div>
                     <!-- Karta z formularzem logowania -->
@@ -29,10 +29,10 @@
                                 {% endfor %}
                         {% endif %}
                         {% if user.is_authenticated %}
-                            <p class="fs-3">Jesteś już zalogowany jako</p>
+                            <p class="fs-3">You are already logged in as</p>
                             <p class="fs-1 fw-semibold">{{ user.username }}</p>
                             <a href="{% url 'LogoutPage' %}">
-                                <button class="btn btn-primary btn-lg">Wyloguj się</button>
+                                <button class="btn btn-primary btn-lg">Logout</button>
                             </a>
                         {% else %}
                             {% if form.non_field_errors %}
@@ -45,21 +45,20 @@
                                     </div>
                                 {% endfor %}
                             {% endif %}
-                            <p class="fs-1">Zaloguj się</p>
+                            <p class="fs-1">Sign in</p>
                             <form method="post">
                                 {% csrf_token %}
                                 <div class="mb-3">
-                                    <label for="{{ form.username.id_for_label }}" class="form-label">Nazwa
-                                        użytkownika</label>
+                                    <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
                                     {{ form.username }}
                                 </div>
                                 <div class="mb-3">
-                                    <label for="{{ form.password.id_for_label }}" class="form-label">Hasło</label>
+                                    <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
                                     {{ form.password }}
                                 </div>
-                                <div id="registerHelp" class="form-text fs-6 mb-3">Nie masz konta? <a
-                                        href="{% url 'RegisterPage' %}">Zarejestruj się</a></div>
-                                <button type="submit" class="btn btn-lg btn-primary mb-3">Zaloguj się</button>
+                                <div id="registerHelp" class="form-text fs-6 mb-3">Don't have an account yet? <a
+                                        href="{% url 'RegisterPage' %}">Sign up.</a></div>
+                                <button type="submit" class="btn btn-lg btn-primary mb-3">Sign in</button>
                             </form>
                         {% endif %}
                     </div>

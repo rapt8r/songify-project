@@ -26,11 +26,11 @@ class UserRegisterForm(UserCreationForm):
         }
         error_messages = {
             'username': {
-                'unique': 'Użytkownik o takiej nazwie już istnieje!',
-                'required': 'Podaj nazwę użytkownika!'
+                'unique': 'This username exists!',
+                'required': 'Enter username!'
             },
             'password2': {
-                'password_mismatch': 'Hasła nie są identyczne!',
+                'password_mismatch': 'Passwords are not identical!',
             },
             'email': {
                 'unique': 'Ten adres email jest już używany!'
@@ -41,6 +41,6 @@ class UserRegisterForm(UserCreationForm):
 
 class AuthForm(AuthenticationForm):
     username = forms.CharField(
-        widget=widgets.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Nazwa użytkownika'}))
+        widget=widgets.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Enter username'}))
     password = forms.CharField(
-        widget=widgets.PasswordInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Hasło'}))
+        widget=widgets.PasswordInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Enter password'}))
