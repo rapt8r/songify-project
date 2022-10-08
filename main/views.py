@@ -63,3 +63,8 @@ class AllAuthorsPage(ListView):
     model = Author
     template_name = 'main/all_authors_page.html'
     context_object_name = 'list'
+
+class AllSongsPage(ListView):
+    model = Song
+    template_name = 'main/all_songs_page.html'
+    context_object_name = 'list'
