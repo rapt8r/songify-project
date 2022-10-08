@@ -21,7 +21,7 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
         widgets = {
-            'username': widgets.TextInput(attrs={'class': 'form-control'},),
+            'username': widgets.TextInput(attrs={'class': 'form-control'}, ),
             'email': widgets.EmailInput(attrs={'class': 'form-control'}),
         }
         error_messages = {

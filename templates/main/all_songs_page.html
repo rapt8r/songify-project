@@ -9,31 +9,8 @@
 
     <div class="container class_list" style="margin-top: 80px">
         <p class="display-5">Wszystkie utwory</p>
-
-
-            {% for song in list %}
-
-
-                <div class="row row_list">
-                    <div class="col-sm-3">
-                        <img src="{{ song.cover_image.url }}" class="img-fluid img-thumbnail">
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                        <a>{{ song.title }}</a>
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                                {% for author in song.author.all %}
-                                    <a class="text-white text-decoration-none">{{ author.name }}</a>
-                                {% endfor %}
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                        <i class="bi bi-folder-plus"></i>
-                    </div>
-                </div>
-
-            {% endfor %}
-
-        </div>
+        {% include 'main/includes/song-list.html' with songs=list %}
+    </div>
 
 
 
