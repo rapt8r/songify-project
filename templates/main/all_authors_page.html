@@ -7,36 +7,12 @@
 
 {% block page_content %}
 
-    <div class="container class_list" style="margin-top: 80px">
-        <p class="display-5">Wykonawcy</p>
-
-
-            {% for author in list %}
-
-
-                <div class="row row_list">
-                    <div class="col-sm-3">
-                        <img src="{{ author.profile_picture.url }}" class="img-fluid img-thumbnail">
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                        <a href="{{ author.slug }}"  class="hover-3">{{ author.name }}</a>
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                        <a>{{ author.description }}</a>
-                    </div>
-{#                    <div class="col-sm-3 d-flex align-items-center">#}
-{#                                {% for author in song.author.all %}#}
-{#                                    <a class="text-white text-decoration-none">{{ author.name }}</a>#}
-{#                                {% endfor %}#}
-{#                    </div>#}
-                    <div class="col-sm-3 d-flex align-items-center">
-                        <i class="bi bi-folder-plus"></i>
-                    </div>
-                </div>
-
-            {% endfor %}
-
+    <div class="container mt-2 rounded-4 bg-dark text-white">
+        <div class="row p-5">
+            <p class="display-5">Wykonawcy</p>
+            {% include 'main/includes/author-list.html' with authors=list %}
         </div>
+    </div>
 
 
 

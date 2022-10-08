@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from main.views import AllSongsPage
 from main.views import SearchPage
-from main.views import MainPage
+from main.views import main_page
 from main.views import RegisterPage
 from main.views import LogoutPage
 from main.views import LoginPage
@@ -30,8 +30,8 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', SearchPage.as_view(), name='SearchPage'),
-    path('all-songs/', AllSongsPage.as_view(), name='all_songs'),
-    path('', MainPage, name='MainPage'),
+    path('all-songs/', AllSongsPage.as_view(), name='AllSongs'),
+    path('', main_page, name='MainPage'),
 
 
     path("register/", RegisterPage.as_view(), name='RegisterPage'),
