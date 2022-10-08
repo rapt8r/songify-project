@@ -1,7 +1,7 @@
 {% extends 'main/root_template.html' %}
 {% load static %}
 {% block page_title %}
-    <title>Zarejestruj się w Songify</title>
+    <title>Sign up - Songify</title>
 {% endblock %}
 {% block page_content %}
     <div id="fs-bg-img" class='container-fluid vh-100 wh-100 g-0'
@@ -12,8 +12,7 @@
                 <div class="row gy-3">
                     <div class="col-lg-6 align-self-center text-white">
                         <h1 class="display-2 fw-semibold">Songify</h1>
-                        <p class="fs-2">Dołącz do społeczności ludzi uwielbiających muzykę. Słuchaj ulubionych
-                            wykonawców bezpłatnie w Songify</p>
+                        <p class="fs-2">Join the biggest community of music lovers. Listen to your favourite artists at Songify for free.</p>
                         <p class="fs-3 fst-italic">"When you enter the party go ahead and clap!"</p>
                     </div>
                     <div class="col-lg-6 p-5 text-bg-light rounded-4 shadow">
@@ -27,33 +26,29 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <p class="fs-1">Zarejestruj się</p>
+                        <p class="fs-1">Sign up</p>
                         <form method="post">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label for="{{ form.username.id_for_label }}" class="form-label">Nazwa
-                                    użytkownika</label>
+                                <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
                                 {{ form.username }}
                             </div>
                             <div class="mb-3">
-                                <label for="{{ form.email.id_for_label }}" class="form-label">Adres e-mail</label>
+                                <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
                                 {{ form.email }}
-                                <div class="form-text fs-6 mb-3">Nie udostępniamy twojego adresu e-mail firmom
-                                    trzecim.
-                                </div>
+                                <div class="form-text fs-6 mb-3">We don't share your email address.</div>
                             </div>
                             <div class="mb-3">
-                                <label for="{{ form.password1.id_for_label }}" class="form-label">Hasło</label>
+                                <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
                                 {{ form.password1 }}
                             </div>
                             <div class="mb-3">
-                                <label for="{{ form.password2.id_for_label }}" class="form-label">Powtórz
-                                    hasło</label>
+                                <label for="{{ form.password2.id_for_label }}" class="form-label">Repeat password</label>
                                 {{ form.password2 }}
                             </div>
-                            <div class="form-text fs-6 mb-3">Masz już konto? <a
-                                    href="{% url 'LoginPage' %}">Zaloguj się</a></div>
-                            <button type="submit" class="btn btn-lg btn-primary mb-3">Zarejestruj się</button>
+                            <div class="form-text fs-6 mb-3">Already registered? <a
+                                    href="{% url 'LoginPage' %}">Sign in</a></div>
+                            <button type="submit" class="btn btn-lg btn-primary mb-3">Sign up</button>
                         </form>
                     </div>
                 </div>
