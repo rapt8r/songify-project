@@ -8,9 +8,9 @@ body.card {
     background-color: #180806;
     color: white;
 }
-.bg-dark {
-  --bs-bg-opacity: 1;
-  background-color: #0c0909;
+.text-bg-dark {
+  color: #fff !important;
+  background-color: #121212;
 }
 card {
 
@@ -56,15 +56,98 @@ all songs
 }
 .row.row_list::after {
   width: 100%;
-  background-color: #5e4c4c;
+  background-color: #28a745;
   height: 1px;
   content: '';
   margin: 5px 10px;
 }
-/*
-author
- */
+.container.class_list a {
+  color: white;
+  text-decoration: none;
+}
+.container.class_list a:hover {
 
+
+}
+
+
+
+.hover-1 {
+  --h: 1.2em;   /* the height */
+
+  line-height: var(--h);
+  color: #0000;
+  text-shadow:
+    0 calc(-1*var(--_t,0em)) #000,
+    0 calc(var(--h) - var(--_t,0em)) #1095c1;
+  overflow: hidden;
+  transition: .3s;
+}
+.hover-1:hover {
+  --_t: var(--h);
+}
+
+.hover-2 {
+  --h: 1.2em;   /* the height */
+
+  linea-height: var(--h);
+  color: #0000;
+  overflow: hidden;
+  text-shadow:
+    0 var(--_t,var(--h)) #fff,
+    0 0 var(--_c,#000);
+  background:
+    linear-gradient(#28a745 0 0)
+    bottom/100% var(--_d, 0) no-repeat;
+  transition: 0.3s;
+}
+.hover-2:hover {
+  --_d: 100%;
+  --_t: 0;
+  --_c: #0000;
+}
+
+.hover-3 {
+  --c: #28a745; /* the color  */
+  --h: 1.2em;   /* the height */
+
+  line-height: var(--h);
+  background:
+    linear-gradient(var(--c) 0 0) no-repeat
+    calc(200% - var(--_p,0%)) 100%/200% var(--_p,.08em);
+  color: #0000;
+  overflow: hidden;
+  text-shadow:
+    0 calc(-1*var(--_t,0em)) var(--c),
+    0 calc(var(--h) - var(--_t,0em)) #fff;
+  transition: .3s var(--_s,0s), background-position .3s calc(.3s - var(--_s,0s));
+}
+.hover-3:hover {
+  --_t: var(--h);
+  --_p: 100%;
+  --_s: .3s
+}
+.hover-4 {
+  --h: 1.2em;   /* the height */
+  --c: #1095c1; /* the color */
+
+  line-height: var(--h);
+  color: #0000;
+  text-shadow:
+    0 var(--_t,var(--h)) #fff,
+    0 0 var(--_c,#000);
+  box-shadow: 0 var(--_t,var(--h)) var(--c);
+  clip-path: inset(0 0 1px 0);
+  background:
+    linear-gradient(var(--c) 0 0) 0 var(--_t,var(--h)) no-repeat;
+  transition: 0.4s ,clip-path 0.4s 0.4s;
+}
+.hover-4:hover {
+  --_t: 0;
+  --_c: #0000;
+  clip-path: inset(0 0 calc(-1*var(--h)) 0);
+  transition: 0.4s 0.4s, clip-path 0.4s;
+}
 /*
 media
  */
