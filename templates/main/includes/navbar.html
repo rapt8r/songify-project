@@ -1,26 +1,30 @@
 {% load static %}
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
-        <div class="container container-fluid ">
-            <a class="navbar-brand" href="#">
-                <img src="{% static 'main/logo.png' %}" alt="Logo" width="40" height="40"
-                     class="d-inline-block align-text-middle" style="filter: invert(1)">
-                Songify
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'MainPage' %}">Strona główna</a>
-                    </li>
-
-                </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div class="container py-2">
+        <a class="navbar-brand" href="#"><i class="bi bi-music-note"></i>Songify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Exclusive Performance</a>
+                </li>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Szukaj" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Szukaj</button>
+                    <input id="search_bar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
-            </div>
+                <button class="btn btn-light" onclick="search()">Search</button>
+            </ul>
+            {% if user.is_authenticated %}
+                <span class="navbar-text"><i class="bi bi-person-circle"></i> Logged as {{ user.username }}</span>
+                <a href="{% url 'LogoutPage' %}"><button class="btn btn-light ms-1">Logout</button></a>
+            {% else %}
+                <a href="{% url 'LoginPage' %}"><button class="btn btn-light">Sign in</button></a>
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>
