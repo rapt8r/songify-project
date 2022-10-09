@@ -9,9 +9,9 @@
     <tbody>
     {% for author in authors %}
         <tr>
-            <td><img src="{{ author.profile_picture.url }}" class="img-fluid rounded-50" style="max-height: 256px"></td>
-            <td><a href="{% url 'author_page' slug=author.slug %}"><span>{{ author.name }}</span></a></td>
-            <td><a href="{% url 'author_page' slug=author.slug %}"><span>{{ author.description }}</span></a></td>
+            <td><img src="{{ author.profile_picture.url }}" class="img-fluid rounded-50" style="max-height: 180px"></td>
+            <td><a class="text-white text-decoration-none hover-4" href="{% url 'author_page' slug=author.slug %}">{{ author.name }}</a></td>
+            <td><a class="text-white text-decoration-none hover-4" href="{% url 'author_page' slug=author.slug %}"><span>{{ author.description }}</span></a></td>
         </tr>
     {% endfor %}
     </tbody>
