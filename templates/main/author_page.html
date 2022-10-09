@@ -3,6 +3,7 @@
     <title>{{ author.name }} - profil</title>
 {% endblock %}
 {% block page_content %}
+    {% include 'main/includes/navbar.html' %}
     <div class="container-fluid shadow-lg px-0"
          style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
         <div class="container-fluid" style="backdrop-filter: blur(5px) brightness(50%)">
