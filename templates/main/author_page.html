@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-sm-6 d-flex align-items-center">
                     {% for author in song.author.all %}
-                        <a href="{{ author.slug }}" class="text-white text-decoration-none hover-3">{{ author.name }}</a>
+                        <a href="{{ author.slug }}" class="text-white text-decoration-none hover-3">{{ author.name }}&nbsp;|&nbsp;</a>
                     {% endfor %}
                 </div>
                 <div class="col-sm-2 d-flex align-items-center">

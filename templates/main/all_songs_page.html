@@ -7,7 +7,7 @@
 
 {% block page_content %}
 
-    <div class="container class_list" style="margin-top: 80px">
+    <div class="container mt-2 rounded-4 bg-dark text-white class_list" style="margin-top: 80px">
         <p class="display-5">Wszystkie utwory</p>
 
 
@@ -15,18 +15,18 @@
 
 
                 <div class="row row_list">
-                    <div class="col-sm-3">
+                    <div class="col-sm-1">
                         <img src="{{ song.cover_image.url }}" class="img-fluid img-thumbnail">
                     </div>
                     <div class="col-sm-3 d-flex align-items-center">
-                        <a>{{ song.title }}</a>
+                        <a href="{% url 'song_page' slug=song.slug  %}" class="hover-3">{{ song.title }}</a>
                     </div>
-                    <div class="col-sm-3 d-flex align-items-center">
+                    <div class="col-sm-6 d-flex align-items-center">
                                 {% for author in song.author.all %}
-                                    <a class="text-white text-decoration-none">{{ author.name }}</a>
+                                    <a href="{% url 'author_page' slug=author.slug  %}" class="hover-3">{{ author.name }}&nbsp;|&nbsp;</a>
                                 {% endfor %}
                     </div>
-                    <div class="col-sm-3 d-flex align-items-center">
+                    <div class="col-sm-2 d-flex align-items-center">
                         <i class="bi bi-folder-plus"></i>
                     </div>
                 </div>
