@@ -80,3 +80,9 @@ class AllSongsPage(ListView):
     model = Song
     template_name = 'main/all_songs_page.html'
     context_object_name = 'list'
+
+class SongPage(DetailView):
+    model = Song
+    template_name = 'main/song_page.html'
+    slug_field = 'slug'
+    context_object_name = 'song'

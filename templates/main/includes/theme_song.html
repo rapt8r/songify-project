@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	{% load static %}
+		<div class="container container-fluid ">
+			<p class="display-5">Music Player</p>
+			</div>
+
+		<div class="container container-fluid"
+			 style="background: url('/media/playlist_background_images/dev_tools/src/undertaker_bg.gif'); background-size: cover; background-repeat: no-repeat">
+			<div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+				<div class="col-lg-4">
+					<img src="/media/song_cover_images/dev_tools/src/theme_Pa66uLL.png"
+						 class="img-fluid rounded-50 shadow profile-pic"
+
+						 alt="...">
+				</div>
+
+				<div class="col-lg-8 text-left">
+					<div class="wrapper">
+						<div class="details">
+							<table class="table table-dark table-hover align-middle table-borderless rounded-2">
+   								 <thead>
+								 <tr>
+								 </tr>
+								 </thead>
+								 <tbody>
+								 {% for author in authors %}
+        							<tr>
+           								<td><img src="{{ song.cover_image.url }}" class="img-fluid rounded-50" style="max-height: 256px"></td>
+            							<td><a href="{% url 'all_songs_page' slug=song.slug %}"><span>{{ song.name }}</span></a></td>
+       								</tr>
+								 {% endfor %}
+								 </tbody>
+							</table>
+
+			   <p><strong><h5 class="fs-1 lh-1"><div class="title">Track Name</div></h5></strong></p>
+			   <p><strong><h5 class="fs-3 lh-3"><div class="author">Track Artist</div></h5></strong></p>
+			   <p><strong><h5 class="fs-6 lh-6"<div class="number_of_plays">Number of plays:</div></h5></strong></p>
+		   </div>
+			</div>
+					<audio controls autoplay>
+			   <source src="/media/song_files/dev_tools/src/theme.mp3" type="audio/mpeg">
+					 Your browser does not support the audio element.
+			</audio>
+		</div>

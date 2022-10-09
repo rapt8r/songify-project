@@ -1,5 +1,4 @@
 """songify_project URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
@@ -25,6 +24,7 @@ from main.views import LogoutPage
 from main.views import LoginPage
 from main.views import AuthorPage
 from main.views import AllAuthorsPage
+from main.views import SongPage
 
 from django.urls import include
 urlpatterns = [
@@ -39,8 +39,10 @@ urlpatterns = [
     path('authors/<slug:slug>', AuthorPage.as_view(), name='author_page'),
     path('authors/', AllAuthorsPage.as_view(), name='all_authors'),
     path("logout/", LogoutPage.as_view(), name='LogoutPage'),
+    path("song/<slug:slug>", SongPage.as_view(), name='song_page'),
 
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
