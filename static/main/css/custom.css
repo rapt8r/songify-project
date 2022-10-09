@@ -148,10 +148,42 @@ all songs
   clip-path: inset(0 0 calc(-1*var(--h)) 0);
   transition: 0.4s 0.4s, clip-path 0.4s;
 }
-/*
-media
- */
+
 /* Author */
 .img-fluid.img-25.bg-light.rounded-50.profile-pic.shadow {
   max-width: 350px;
   }
+
+/*
+media
+
+ */
+@media screen and (max-width:414px) {
+  .display-5 {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.3rem;
+    display: block;
+    text-align: center;
+  }
+  .img-fluid.img-25.bg-light.rounded-50.profile-pic.shadow {
+  max-width: 100%;
+  }
+  .class_list .row img {
+  max-height: 10rem;
+  width: auto;
+  margin: 0 auto !important;
+  display: block;
+  }
+.container.class_list a {
+  color: white;
+  text-decoration: none;
+  text-align: center !important;
+  margin: 0 auto;
+  padding-top: 10px;
+  }
+.bi.bi-folder-plus {
+  margin: 0 auto;
+  padding: 10px;
+  }
+}
