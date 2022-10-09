@@ -87,3 +87,8 @@ class SongPage(DetailView):
     template_name = 'main/song_page.html'
     slug_field = 'slug'
     context_object_name = 'song'
+    def get_object(self):
+        obj = super().get_object()
+        obj.number_of_plays += 1
+        obj.save(update_fields=['number_of_plays'])
+        return obj
