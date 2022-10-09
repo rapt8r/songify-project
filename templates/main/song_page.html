@@ -15,66 +15,16 @@
       {% load static %}
      <div class="container container-fluid ">
         <div class="row">
+            <div class="col-lg-4">
+                        <img src="{{ author.profile_picture.url }}"
+                             class="img-fluid bg-light rounded-50 profile-pic shadow img-25">
+                    </div>
             <div class="col-md-12">
                 <p class="display-5" style="padding-top: 60px">LYRICS</p>
+
+
                     <div class="container"
-                         style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
-                        <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
-                            <div class="col-lg-4">
-                            </div>
-                            <div class="col-lg-8 text-left card-min-marg-top">
-                                <h5 class="fs-1 lh-1">{{ trending_song.title }}</h5>
-                                {% for author in trending_song.author.all %}
-                                    <p class="fs-5 lh-5">{{ author.name }}</p>
-                                {% endfor %}
-                                {% for category in trending_song.category.all %}
-                                   <p class="fs-7 lh-7">{{ category.name }}</p>
-                                {%  endfor %}
-{#                                <a href="{% url 'song_page' slug=song.slug %}">#}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+
             </div>
-
-
-    {#< ! ╌  test ╌>#}
-    {#        <div class="text-light bg-dark">#}
-    {#            <div class="container mt-5">#}
-    {#                <div class="row mt-12 text-white gy-5">#}
-    {#                    <p class="display-3">Lyrics</p>#}
-    {#    #}
-    {#                    {% for song in top_songs %}#}
-    {#                        <div class="card border-0 text-center mx-6 my-6 text-light no-padding bg-dark" style="max-width: 11rem;">#}
-    {#    {#                            <div class="card-body">#}
-    {#                                <h5 class="card-title">{{ song.title }}</h5>#}
-    {#    #}
-    {#                                <a class="text-reset text-decoration-none" href="#"><p class="card-text">{{ song.author }}</p></a>#}
-    {#                                <a href="#" class="btn btn-primary">Słuchaj</a>#}
-    {#                        <a class="text-reset text-decoration-none" href="{% url 'author_page' slug=song.author.slug %}"><p class="card-text">{{ song.author }}</p></a>#}
-    {#                        <a href="{% url 'song_page' slug=song.slug %}" class="btn btn-primary">Słuchaj</a>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                    {% endfor %}#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <div class="container">#}
-    {#          <div class="row">#}
-    {#            <div class="col-lg-4 col-md-12">#}
-    {#                test#}
-    {#            </div>#}
-    {#    #}
-    {#            <div class="col-lg-4 col-md-6">#}
-    {#                test#}
-    {#            </div>#}
-    {#    #}
-    {#            <div class="col-lg-4 col-md-6">#}
-    {#                test#}
-    {#            </div>#}
-    {#          </div>#}
-    {#    </div>#}
-    {#< ! ╌  end test ╌>#}
-
 
 {% endblock %}
