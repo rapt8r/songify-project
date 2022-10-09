@@ -7,46 +7,46 @@
 
 {% block page_content %}
 
-    <div class="container class_list" style="margin-top: 80px">
-        <p class="display-5">Wszystkie utwory</p>
-
-
-            {% for song in list %}
-
-
-                <div class="row row_list">
-                    <div class="col-sm-3">
-                        <img src="{{ song.cover_image.url }}" class="img-fluid img-thumbnail">
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                        <a>{{ song.title }}</a>
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                                {% for author in song.author.all %}
-                                    <a class="text-white text-decoration-none">{{ author.name }}</a>
-                                {% endfor %}
-                    </div>
-                    <div class="col-sm-3 d-flex align-items-center">
-                        <i class="bi bi-folder-plus"></i>
-                    </div>
-                </div>
-
-            {% endfor %}
-
+    <div class="container container-fluid ">
         </div>
-
+    </div>
+   {% include 'main/includes/theme_song.html' %}
+     <div class="container container-fluid ">
+      {% load static %}
+     <div class="container container-fluid ">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="display-5" style="padding-top: 60px">LYRICS</p>
+                    <div class="container"
+                         style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+                        <div class="row p-5 align-items-center gy-2" style="backdrop-filter: blur(5px) brightness(50%)">
+                            <div class="col-lg-4">
+                            </div>
+                            <div class="col-lg-8 text-left card-min-marg-top">
+                                <h5 class="fs-1 lh-1">{{ trending_song.title }}</h5>
+                                {% for author in trending_song.author.all %}
+                                    <p class="fs-5 lh-5">{{ author.name }}</p>
+                                {% endfor %}
+                                {% for category in trending_song.category.all %}
+                                   <p class="fs-7 lh-7">{{ category.name }}</p>
+                                {%  endfor %}
+{#                                <a href="{% url 'song_page' slug=song.slug %}">#}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
 
 
     {#< ! ╌  test ╌>#}
     {#        <div class="text-light bg-dark">#}
     {#            <div class="container mt-5">#}
     {#                <div class="row mt-12 text-white gy-5">#}
-    {#                    <p class="display-3">Najnowszy utwór</p>#}
+    {#                    <p class="display-3">Lyrics</p>#}
     {#    #}
     {#                    {% for song in top_songs %}#}
     {#                        <div class="card border-0 text-center mx-6 my-6 text-light no-padding bg-dark" style="max-width: 11rem;">#}
-    {#                            <img src="{{ song.image.url }}" class="card-img-top">#}
-    {#                            <div class="card-body">#}
+    {#    {#                            <div class="card-body">#}
     {#                                <h5 class="card-title">{{ song.title }}</h5>#}
     {#    #}
     {#                                <a class="text-reset text-decoration-none" href="#"><p class="card-text">{{ song.author }}</p></a>#}
