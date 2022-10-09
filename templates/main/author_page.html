@@ -25,7 +25,7 @@
     </div>
     <div class="container mt-2 rounded-4 bg-dark text-white class_list" style="margin-top: 80px">
         <p class="display-5">Wszystkie utwory (na liście{{ author.song_set.count }} pozycji)</p>
-            {% for song in song_list %}
+            {% for song in author.song_set.all %}
                 <div class="row row_list">
                     <div class="col-sm-3">
                         <img src="{{ song.cover_image.url }}" class="img-fluid img-thumbnail">
