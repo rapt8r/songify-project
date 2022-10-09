@@ -3,6 +3,7 @@
     <tr>
         <th scope="col"></th>
         <th scope="col">Nazwa</th>
+        <th scope="col">Opis</th>
     </tr>
     </thead>
     <tbody>
@@ -10,6 +11,7 @@
         <tr>
             <td><img src="{{ author.profile_picture.url }}" class="img-fluid rounded-50" style="max-height: 256px"></td>
             <td><a href="{% url 'author_page' slug=author.slug %}"><span>{{ author.name }}</span></a></td>
+            <td><a href="{% url 'author_page' slug=author.slug %}"><span>{{ author.description }}</span></a></td>
         </tr>
     {% endfor %}
     </tbody>
