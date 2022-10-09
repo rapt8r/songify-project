@@ -6,17 +6,22 @@
 {% endblock %}
 
 {% block page_content %}
-
-
-    {% include 'main/includes/trending_song.html' %}
-    {#    listy#}
-
-    <div class="container container-fluid ">
-        <div class="row ">
-
-            {% include 'main/includes/playlist-top-list.html' %}
-            {% include 'main/includes/playlist-popular.html' %}
-
+    {% include 'main/includes/navbar.html' %}
+    <div class="container p-5 text-bg-dark rounded-2">
+        <div class="row">
+            {% include 'main/includes/trending_song.html' %}
+        </div>
+        <div class="row mt-5 gx-5 gy-5">
+            <div class="col-lg-6">
+                <p class="fs-1">Top list</p>
+                <p class="fs-4">List of the most popular songs on Songify</p>
+                {% include 'main/includes/song-list.html' with songs=top_songs %}
+            </div>
+            <div class="col-lg-6">
+                <p class="fs-1">Recommended</p>
+                <p class="fs-4">Give it a try!</p>
+                {% include 'main/includes/song-list.html' with songs=top_songs %}
+            </div>
         </div>
 
         {#new artist#}

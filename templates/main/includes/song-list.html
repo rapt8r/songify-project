@@ -5,6 +5,7 @@
         <th scope="col">Tytuł</th>
         <th scope="col"><i class="bi bi-stopwatch-fill"></i></th>
         <th scope="col">Ilość odtworzeń</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -16,13 +17,13 @@
                 <br>
                 <span class="lh-1">
                     {% for author in song.author.all %}
-                        {{ author }}
+                        <a class='text-reset'href="{% url 'author_page' slug=author.slug %}">{{ author }}</a>
                     {% endfor %}
                 </span>
             </td>
             <td>3:15</td>
             <td>{{ song.number_of_plays }}</td>
-        </tr>
+            <td><a href="{% url 'song_page' slug=song.slug %}"><button class="btn btn-light">Play</button></a></td>
     {% endfor %}
     </tbody>
 </table>

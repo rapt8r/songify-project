@@ -15,18 +15,7 @@ body.card {
 card {
 
 }
-/*
-button
- */
-.btn.btn-light.btn-lg {
-  width: 60%;
-  position: absolute;
-  bottom: 50px;
-}
 
-.col-lg-8.text-left.card-min-marg-top {
-  margin-top: -50px;
-}
 .card-min-marg-top p {
   margin-bottom: 0;
 }
