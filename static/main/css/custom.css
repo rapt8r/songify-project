@@ -129,7 +129,7 @@ all songs
 }
 .hover-4 {
   --h: 1.2em;   /* the height */
-  --c: #1095c1; /* the color */
+  --c: #28a745; /* the color */
 
   line-height: var(--h);
   color: #0000;
