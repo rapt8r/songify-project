@@ -151,3 +151,7 @@ all songs
 /*
 media
  */
+/* Author */
+.img-fluid.img-25.bg-light.rounded-50.profile-pic.shadow {
+  max-width: 350px;
+  }
