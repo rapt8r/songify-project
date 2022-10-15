@@ -1,0 +1,7 @@
+<div class="card p-0 border-0 me-2" style="width: 12rem;">
+    <img src="{{ author.profile_picture.url }}" class="card-img-top" alt="...">
+    <div class="card-body text-center">
+        <h5 class="card-title text-black">{{ author.name }}</h5>
+        <a href="{% url 'author_page' slug=author.slug %}" class="text-reset text-decoration-none btn btn-dark">Discover</a>
+    </div>
+</div>

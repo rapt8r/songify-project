@@ -1,0 +1,7 @@
+<div class="card p-0 border-0 me-2" style="width: 12rem;">
+    <img src="{{ song.cover_image.url }}" class="card-img-top" alt="...">
+    <div class="card-body text-center">
+        <h5 class="card-title text-black">{{ song.title }}</h5>
+        <a href="{% url 'song_page' slug=song.slug %}" class="text-reset text-decoration-none btn btn-dark">Listen</a>
+    </div>
+</div>
