@@ -39,7 +39,7 @@ urlpatterns = [
     path('authors/<slug:slug>', AuthorPage.as_view(), name='author_page'),
     path('authors/', AllAuthorsPage.as_view(), name='all_authors'),
     path("logout/", LogoutPage.as_view(), name='LogoutPage'),
-    path("song/<slug:slug>", SongPage.as_view(), name='song_page'),
+    path("play/<slug:slug>", SongPage.as_view(), name='song_page'),
 
 ]
 if settings.DEBUG:
