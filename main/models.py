@@ -11,6 +11,7 @@ class Category(models.Model):
 class Author(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.TextField(blank=True, null=True)
+    country = models.CharField(max_length=8, blank=True)
     slug = models.SlugField(max_length=32)
     profile_picture = models.ImageField(upload_to='author_profile_picture_images/')
     profile_background = models.ImageField(upload_to='author_profile_background_images/')

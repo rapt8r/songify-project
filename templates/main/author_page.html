@@ -1,61 +1,47 @@
 {% extends 'main/root_template.html' %}
 {% block page_title %}
-    <title>{{ author.name }} - profil</title>
+    <title>{{ author.name }} - profile</title>
 {% endblock %}
 {% block page_content %}
-    {% include 'main/includes/navbar.html' %}
     <div class="container-fluid shadow-lg px-0"
-         style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat">
+         style="background-image: url({{ author.profile_background.url }}); background-size: cover; background-repeat: no-repeat; background-position: center">
         <div class="container-fluid" style="backdrop-filter: blur(5px) brightness(50%)">
-        <div class="container">
-            <div class="row">
-                <div class="row vh-50 justify-content-center align-items-center gx-5 p-5 text-white">
-                    <div class="col-lg-4">
-                        <img src="{{ author.profile_picture.url }}"
-                             class="img-fluid bg-light rounded-50 profile-pic shadow img-25">
-                    </div>
-                    <div class="col-lg-8">
-                        <p class="fs-5 mt-2 lh-1"><i class="bi bi-bookmark-heart"> Zweryfikowany profil</i></p>
-                        <h1 class="display-1 fw-semibold">{{ author.name }}</h1>
-                        {% if author.country %}
-                            <p class="fs-5">Kraj wykonawcy <span class="fi fi-{{ author.country }}"></span></p>
-                        {% endif %}
-                        <p class="fs-3">{{ author.description }}</p>
-                        <a href="#">
-                            <button class="fs-3 btn btn btn-success"><em class="bi bi-play-circle-fill"></em> Losowy
-                                utwór
-                            </button>
-                        </a>
-                        {#                    <a href="{% url 'song_page' slug=random_song.slug %}"><button class="fs-3 btn btn-dark"><em class="bi bi-play-circle-fill"></em> Odtwarzaj losowo</button></a>#}
+            <div class="container">
+                <div class="row">
+                    <div class="row vh-50 justify-content-center align-items-center gx-5 p-5 text-white">
+                        <div class="col-lg-4">
+                            <img src="{{ author.profile_picture.url }}"
+                                 class="img-fluid rounded-50 shadow">
+                        </div>
+                        <div class="col-lg-8">
+                            <p class="fs-5 mt-2 lh-1"><i class="bi bi-check-circle-fill"></i> Verified author</p>
+                            <h1 class="display-1 fw-semibold">{{ author.name }}</h1>
+                            {% if author.country %}
+                                <p class="fs-5">Country <span class="fi fi-{{ author.country }}"></span></p>
+                            {% endif %}
+                            <p class="fs-3">{{ author.description }}</p>
+                            <a href="#">
+                                <button class="fs-3 btn btn btn-success"><em class="bi bi-play-circle-fill"></em> Play
+                                    random song
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    </div>
-    <div class="container mt-2 rounded-4 bg-dark text-white class_list" style="margin-top: 80px">
-        <p class="display-5">Wszystkie utwory (na liście{{ author.song_set.count }} pozycji)</p>
-        {% for song in author.song_set.all %}
-            <div class="row row_list">
-                <div class="col-sm-1">
-                    <img src="{{ song.cover_image.url }}" class="img-fluid img-thumbnail">
-                </div>
-                <div class="col-sm-3 d-flex align-items-center">
-
-                    <a href="{% url 'song_page' slug=song.slug  %}" class="hover-3">{{ song.title }}</a>
-                </div>
-                <div class="col-sm-6 d-flex align-items-center">
-                    {% for author in song.author.all %}
-                        <a href="{{ author.slug }}" class="text-white text-decoration-none hover-3">{{ author.name }}&nbsp;|&nbsp;</a>
-                    {% endfor %}
-                </div>
-                <div class="col-sm-2 d-flex align-items-center">
-                    <i class="bi bi-folder-plus"></i>
-                </div>
-            </div>
-        {% endfor %}
-
-
+    <div class="container mt-5">
+        <p class="fs-1">{{ author.name }} songs - {{ author.song_set.count }}</p>
+        <div class="row rounded-3 d-flex justify-content-start g-2">
+            {% for song in author.song_set.all %}
+                    <div class="card p-0 border-0 me-2" style="width: 12rem;">
+                        <img src="{{ song.cover_image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body text-center text-black">
+                            <h5 class="card-title">{{ song.title }}</h5>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
