@@ -16,7 +16,7 @@
                 <span class="lh-1 fw-bold">{{ song.title }}</span>
                 <br>
                 <span class="lh-1">
-                    {% for author in song.author.all %}
+                    {% for author in song.author.all|slice:':1' %}
                         <a class='text-reset'href="{% url 'author_page' slug=author.slug %}">{{ author }}</a>
                     {% endfor %}
                 </span>
