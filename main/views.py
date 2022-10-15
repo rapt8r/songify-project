@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, DetailView, ListView, RedirectView
 from main.models import Song, Author, Playlist
-from random import choice, choices
+from random import choice, choices, sample
 from django.views.generic import CreateView
 from .forms import UserRegisterForm
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LogoutView, LoginView
 from main.forms import AuthForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class SearchPage(TemplateView):
@@ -50,16 +51,19 @@ MOTD_TEXT = [
     'Songify - twoje utwory',
     'Songify - słuchaj muzyki',
 ]
-
+NEW_SONG_LABEL = [
+    'Check out my new song - ',
+    'New release - ',
+    'Latest release - '
+]
 
 def main_page(request):
     context_dir = {
-        'trending_song': Song.objects.all().order_by('-number_of_plays')[0],
-        'top_songs': Song.objects.all().order_by('-number_of_plays')[1:4],
-        'recommended_songs': choices(Song.objects.all(), k=3),
-        'recommended_artists': choices(Author.objects.all(), k=2),
+        'new_song_label': choice(NEW_SONG_LABEL),
+        'new_song': Song.objects.latest(),
+        'choosen_for_you': sample(list(Song.objects.all()), 5),
+        'discover_new_artists': sample(list(Author.objects.all()), 5),
         'motd': choice(MOTD_TEXT),
-        'top_playlist': Playlist.objects.all()
     }
     return render(request, template_name='main/main_page.html', context=context_dir)
 
@@ -82,13 +86,19 @@ class AllSongsPage(ListView):
     template_name = 'main/all_songs_page.html'
     context_object_name = 'list'
 
-class SongPage(DetailView):
+class SongPage(LoginRequiredMixin,DetailView):
     model = Song
     template_name = 'main/song_page.html'
     slug_field = 'slug'
     context_object_name = 'song'
+
     def get_object(self):
         obj = super().get_object()
         obj.number_of_plays += 1
         obj.save(update_fields=['number_of_plays'])
         return obj
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        context['up_next'] = sample(list(Song.objects.all()), 5)
+        return self.render_to_response(context)

@@ -7,6 +7,7 @@ class AuthorAdmin(admin.ModelAdmin):
     search_fields = ['name']
 class SongAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'number_of_plays')
+    exclude = ['slug' 'number_of_plays',]
     search_fields = ['name', 'category']
 class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']

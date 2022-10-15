@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block page_title %}
-    <title>{{ motd }}</title>
+    <title>{{ song.author.first.name }} - {{ song.title }}</title>
 {% endblock %}
 
 {% block page_content %}
-    <div class="container-fluid text-light bg-dark p-0"
+    <div id='background' class="container-fluid text-light bg-dark p-0"
          style="background-image: url({{ song.cover_image.url }}); background-size: cover; background-position: center">
         <div class="container-fluid p-5" style="backdrop-filter: blur(5px) brightness(50%)">
             <div class="container">
@@ -19,7 +19,7 @@
                         <a class='text-reset text-decoration-none'
                            href="{% url 'author_page' slug=song.author.first.slug %}"><p
                                 class="fs-3 fw-semibold">{{ song.author.first.name }}</p></a>
-                        <audio controls preload="auto" style="width: 100%">
+                        <audio id="player" controls preload="auto" style="width: 100%">
                             <source src="{{ song.music_file.url }}" type="audio/mp3">
                             Your browser does not support the audio element.
                         </audio>
@@ -56,6 +56,21 @@
                 </p>
             </div>
         </div>
+        <div class="row gy-2">
+                <p class="fs-1">Up next</p>
+                {% include 'main/includes/song-list.html' with songs=up_next%}
+        </div>
     </div>
-    </div>
+{% endblock %}
+
+{% block page_custom_js %}
+    <script>
+        var player = document.getElementById("player");
+        var bg = document.getElementById("background")
+        player.onplay = function () {
+
+        };
+        player.onpause = function () {
+        };
+    </script>
 {% endblock %}

@@ -12,22 +12,15 @@ DUMMY_CATEGORY = [
     {'name' : 'RAP'},
     {'name' : 'ROCK'},
     {'name' : 'TRAP'},
-    {'name': 'FOCUS'},
-    {'name': 'GRAVEDIGGER'},
     {'name' : 'HIP-HOP'},
     {'name' : 'LATINO'},
     {'name' : 'KOŚCIELNA'},
 ]
 #Dummy author data used to fill up database for testing
 DUMMY_AUTHOR = [
-    {'name': 'Krzysztof Krawczyk', 'description': 'Dzień dobry, jestem Krzysztof Krawczyk!', 'profile_picture': 'krawczyk.png'},
-    {'name': 'Maryla Rodowicz', 'description': 'Rozmrażają mnie co sylwestra...', 'profile_picture': 'rodowicz.png'},
-    {'name': 'Zenon Martyniuk', 'description': 'Gwiazda, w górze lśni', 'profile_picture': 'martyniuk.png'},
-    {'name': 'Doda', 'description': 'Szukam miłości', 'profile_picture': 'doda.png'},
-    {'name': 'Zespół Marzenie', 'description': 'W moim ogródeczku!', 'profile_picture': 'marzenie.png'},
-    {'name': 'Imagine Dragons', 'description': 'We make good music', 'profile_picture': 'imagine_dragons.png'},
-    {'name': 'Camila Cabello', 'description': 'Latino girl!', 'profile_picture': 'cabello.png'},
-    {'name': 'The Undertaker', 'description': 'I will find you...', 'profile_picture': 'undertaker.png'},
+    {'name': 'Imagine Dragons','country':'us', 'description': 'We make good music', 'profile_picture': 'imagine_dragons.png'},
+    {'name': 'Camila Cabello','country':'cu', 'description': 'Latino girl!', 'profile_picture': 'cabello.png'},
+    {'name': 'The Undertaker', 'country':'us','description': 'I will find you...', 'profile_picture': 'undertaker.png'},
 ]
 #Dummy song data used to fill up database for testing
 DUMMY_SONG = [
@@ -55,6 +48,7 @@ def fill_up():
         new_author = Author()
         new_author.name = author['name']
         new_author.description = author['description']
+        new_author.country = author['country']
         new_author.slug = slugify(author['name'])
         new_author.profile_picture = File(open(MEDIA_FOLDER + author['profile_picture'], 'rb'))
         new_author.profile_background = File(open(DEFAULT_BACKGROUND, 'rb'))

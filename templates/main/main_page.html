@@ -6,35 +6,55 @@
 {% endblock %}
 
 {% block page_content %}
-    <div class="container p-5 text-bg-dark rounded-2">
+    <a href="{% url 'song_page' slug=new_song.slug %}" class="text-reset text-decoration-none">
+        <div class="container-fluid text-light bg-dark p-0"
+             style="background-image: url({{ new_song.author.first.profile_background.url }}); background-size: cover; background-position: center">
+            <div class="container-fluid p-5" style="backdrop-filter: blur(5px) brightness(50%)">
+                <div class="container">
+                    <!-- New song message -->
+                    <div class="row align-items-center gx-5 gy-3">
+                        <span class="fs-3"><img src="{{ new_song.author.first.profile_picture.url }}"
+                                                class="rounded-50 me-2 shadow"
+                                                style="max-height: 6rem; max-width: 6rem">{{ new_song_label }}{{ new_song.title }}!</span>
+                    </div>
+                    <!-- New song image and title -->
+                    <div class="row gy-2 mt-3 align-items-center">
+                        <div class="col-md-3">
+                            <img src="{{ new_song.cover_image.url }}" class="img-fluid shadow">
+                        </div>
+                        <div class="col-md-9">
+                            <p class="display-3 fw-semibold lh-1">
+                                {{ new_song.title }}
+                            </p>
+                            <p class="fs-4 fw-semibold lh-1">
+                                {{ new_song.author.first }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <!-- Choosen for you section -->
+    <div class="container mt-5">
         <div class="row">
-            {% include 'main/includes/trending_song.html' %}
+            <p class="display-4 fw-semibold">Choosen for you</p>
         </div>
-        <div class="row mt-5 gx-5 gy-5">
-            <div class="col-lg-6">
-                <p class="fs-1">Top list</p>
-                <p class="fs-4">List of the most popular songs on Songify</p>
-                {% include 'main/includes/song-list.html' with songs=top_songs %}
-            </div>
-            <div class="col-lg-6">
-                <p class="fs-1">Recommended</p>
-                <p class="fs-4">Give it a try!</p>
-                {% include 'main/includes/song-list.html' with songs=top_songs %}
-            </div>
+        <div class="row gy-2">
+            {% for song in choosen_for_you %}
+                {% include 'main/includes/song-small-card.html' %}
+            {% endfor %}
         </div>
-
-        {#new artist#}
-
-        {% include 'main/includes/newest-author.html' %}
-
-        {#{    listy autorów? }#}
-
-        <div class="container container-fluid ">
-            <div class="row ">
-
-                {% include 'main/includes/playlist-top-authors.html' %}
-                {% include 'main/includes/playlist-popular-author.html' %}
-            </div>
+    </div>
+    <!-- Discover artists section -->
+    <div class="container mt-5">
+        <div class="row">
+            <p class="display-4 fw-semibold">Discover artists</p>
+        </div>
+        <div class="row gy-2">
+            {% for author in discover_new_artists %}
+                {% include 'main/includes/author-small-card.html' %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
