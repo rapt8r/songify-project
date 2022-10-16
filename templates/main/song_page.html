@@ -153,7 +153,7 @@
             var swatches = vibrant.swatches()
             for (var swatch in swatches)
                 if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-                    //console.log(swatch, swatches[swatch].getHex())
+                    console.log(swatch, swatches[swatch].getHex())
             document.getElementById("logo").style.transitionDelay = "1s";
             document.getElementById("logo").style.transitionDuration = "1.5s";
             document.getElementById("logo").style.color = swatches["LightVibrant"].getHex();
