@@ -18,19 +18,35 @@
                         <img id="cover" src="{{ song.cover_image.url }}" class="img-fluid shadow">
                     </div>
                     <div class="col-md-8">
-                        <p class="display-1 fw-semibold lh-1">{{ song.title }}</p>
+                        <p id="title" class="display-1 fw-semibold lh-1">{{ song.title }}</p>
                         <a class='text-reset text-decoration-none'
                            href="{% url 'author_page' slug=song.author.first.slug %}"><p
-                                class="fs-3 fw-semibold">{{ song.author.first.name }}</p></a>
+                                class="fs-3 fw-semibold" id="author">{{ song.author.first.name }}</p></a>
                         {% if user.is_authenticated %}
-                            <div class="row player-wrapper">
-                                <span class="p-0"><i id="btn-play" class="bi bi-play-fill"></i></span>
-                                <input type="range" class="form-range" value="0" id="range" min="0" max="1"
-                                       step="0.005">
+                            <div id="player-wrapper" class="d-none">
+                                <div class="row">
+                                    <div class="col fs-1">
+                                        <i id="btn-play" class="bi bi-play-fill d-inline"></i>
+                                    </div>
+                                    <div class="col align-items-center justify-content-end d-none d-sm-flex">
+                                        <label for="volume-bar"><i class="bi fs-3 bi-volume-up-fill"></i></label>
+                                        <input id="volume-bar" style="width: 50%" type="range" class="progress mx-2"
+                                               value="1" min="0"
+                                               max="1" step="0.005">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-flex align-items-center">
+                                        <label id="current-time" for="progress-bar">0:00</label>
+                                        <input id="progress-bar" type="range" class="progress mx-2" value="0" min="0"
+                                               max="1" step="0.005">
+                                        <label id="duration" for="progress-bar">0:00</label>
+                                    </div>
+                                </div>
                             </div>
                         {% else %}
                             <p class="fs-1">Sign in to play this music.</p>
-                            <a href="{% url 'LoginPage' %}" class="btn btn-light btn-lg">Sign in</a>
+                            <<a href="{% url 'LoginPage' %}" class="btn btn-light btn-lg">Sign in</a>
                         {% endif %}
                     </div>
                 </div>
@@ -75,12 +91,26 @@
 {% block page_custom_js %}
     <script src="{% static 'main/js/Vibrant.min.js' %}"></script>
     <script>
+        //Create audio object
         var player = new Audio();
         player.preload = "metadata";
         player.src = "{{ song.music_file.url }}";
-        var range = document.getElementById("range");
+        player.volume = 1;
+        //Do this when metadata is loaded
+        player.onloadedmetadata = function () {
+            console.log("Metadata loaded")
+            //Set the duration label
+            document.getElementById("duration").innerHTML = new Date(player.duration * 1000).toISOString().substring(14, 19)
+            document.getElementById("player-wrapper").classList.remove("d-none")
+        }
+
+
+        var range = document.getElementById("progress-bar");
+        var volume_bar = document.getElementById("volume-bar")
         var btn_play = document.getElementById("btn-play");
+        var current_time = document.getElementById(("current-time"));
         var playing = false;
+
         btn_play.onclick = function () {
             if (playing) {
                 player.pause();
@@ -97,14 +127,25 @@
             }
         }
         player.ontimeupdate = function () {
-            var time = this.currentTime / this.duration;
-            console.log(time);
-            range.value = time;
+            //Calculate the percentage of song
+            var percent = this.currentTime / this.duration;
+            range.value = percent;
+            var s = parseInt(player.currentTime % 60);
+            if (s < 10) {
+                s = '0' + s;
+            }
+            var m = parseInt((player.currentTime / 60) % 60);
+            document.getElementById("current-time").innerHTML = m + ":" + s;
         }
+        //Skip part of a song
         range.onchange = function () {
             player.currentTime = range.value * player.duration;
         }
-
+        //Volume change
+        volume_bar.onchange = function () {
+            player.volume = this.value;
+        }
+        //Logo color change
         var cover_image = new Image();
         cover_image.src = "{{ song.cover_image.url }}";
         cover_image.onload = function () {
@@ -112,9 +153,16 @@
             var swatches = vibrant.swatches()
             for (var swatch in swatches)
                 if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-                    console.log(swatch, swatches[swatch].getHex())
-            document.getElementById("logo").style.transitionDuration = "2s";
+                    //console.log(swatch, swatches[swatch].getHex())
+            document.getElementById("logo").style.transitionDelay = "1s";
+            document.getElementById("logo").style.transitionDuration = "1.5s";
             document.getElementById("logo").style.color = swatches["LightVibrant"].getHex();
+            document.getElementById("title").style.transitionDelay = "1s";
+            document.getElementById("title").style.transitionDuration = "1.5s";
+            document.getElementById("title").style.color = swatches["LightVibrant"].getHex();
+            document.getElementById("author").style.transitionDelay = "1s";
+            document.getElementById("author").style.transitionDuration = "1.5s";
+            document.getElementById("author").style.color = swatches["LightVibrant"].getHex();
         }
     </script>
 {% endblock %}
