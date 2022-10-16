@@ -12,7 +12,7 @@
             <div class="container-fluid p-5" style="backdrop-filter: blur(5px) brightness(50%)">
                 <div class="container">
                     <!-- New song message -->
-                    <div class="row align-items-center gx-5 gy-3">
+                    <div class="row align-items-center">
                         <span class="fs-3"><img src="{{ new_song.author.first.profile_picture.url }}"
                                                 class="rounded-50 me-2 shadow"
                                                 style="max-height: 6rem; max-width: 6rem">{{ new_song_label }}{{ new_song.title }}!</span>
@@ -35,12 +35,12 @@
             </div>
         </div>
     </a>
-    <!-- Choosen for you section -->
+    <!-- Chosen for you section -->
     <div class="container mt-5">
         <div class="row">
-            <p class="display-4 fw-semibold">Choosen for you</p>
+            <p class="display-4 fw-semibold">Chosen for you</p>
         </div>
-        <div class="row gy-2">
+        <div class="row gy-2 justify-content-center justify-content-md-start">
             {% for song in choosen_for_you %}
                 {% include 'main/includes/song-small-card.html' %}
             {% endfor %}
@@ -51,10 +51,19 @@
         <div class="row">
             <p class="display-4 fw-semibold">Discover artists</p>
         </div>
-        <div class="row gy-2">
+        <div class="row gy-2 justify-content-center justify-content-md-start">
             {% for author in discover_new_artists %}
                 {% include 'main/includes/author-small-card.html' %}
             {% endfor %}
+        </div>
+    </div>
+    <!-- Top songs section -->
+    <div class="container mt-5">
+        <div class="row gy-2">
+            <div class="col-lg-6">
+                <p class="display-4 fw-semibold">Top songs on Songify</p>
+                {% include 'main/includes/song-list.html' with songs=top_songs %}
+            </div>
         </div>
     </div>
 {% endblock %}

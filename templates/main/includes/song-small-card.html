@@ -2,6 +2,7 @@
     <img src="{{ song.cover_image.url }}" class="card-img-top" alt="...">
     <div class="card-body text-center">
         <h5 class="card-title text-black">{{ song.title }}</h5>
+        <p class="card-text text-black">{{ song.author.first }}</p>
         <a href="{% url 'song_page' slug=song.slug %}" class="text-reset text-decoration-none btn btn-dark">Listen</a>
     </div>
 </div>

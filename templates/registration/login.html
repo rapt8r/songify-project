@@ -18,7 +18,7 @@
                         <p class="fs-3 fst-italic">"When you enter the party go ahead and clap!"</p>
                     </div>
                     <!-- Sign in card -->
-                    <div class="col-lg-6 p-5 text-bg-dark rounded-4 shadow">
+                    <div class="col-lg-6 p-5 text-light rounded-4 shadow" style="background-color: black;">
                         {% if messages %}
                             <div class="alert alert-success fw-bold d-flex align-items-center alert-dismissible fade show"
                                  role="alert">
@@ -33,7 +33,7 @@
                             <p class="fs-3">You are already logged in as</p>
                             <p class="fs-1 fw-semibold">{{ user.username }}</p>
                             <a href="{% url 'LogoutPage' %}">
-                                <button class="btn btn-primary btn-lg">Logout</button>
+                                <button class="btn btn-light btn-lg">Logout</button>
                             </a>
                         {% else %}
                             {% if form.non_field_errors %}
@@ -59,7 +59,7 @@
                                 </div>
                                 <div id="registerHelp" class="form-text fs-6 mb-3">Don't have an account yet? <a
                                         href="{% url 'RegisterPage' %}">Sign up.</a></div>
-                                <button type="submit" class="btn btn-lg btn-primary mb-3">Sign in</button>
+                                <button type="submit" class="btn btn-lg btn-light mb-3">Sign in</button>
                             </form>
                         {% endif %}
                     </div>
