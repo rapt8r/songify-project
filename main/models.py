@@ -46,7 +46,7 @@ class Author(models.Model):
 
 class Song(models.Model):
     title = models.CharField(max_length=64)
-    slug = models.SlugField(max_length=8)
+    slug = models.SlugField(max_length=8, blank=True)
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Category)
     number_of_plays = models.PositiveIntegerField(default=0)
@@ -59,7 +59,8 @@ class Song(models.Model):
         compressed_cover_image = compress(self.cover_image)
         compressed_size = compressed_cover_image.size
         self.cover_image = compressed_cover_image
-        self.slug = get_random_string(length=8)
+        if not self.slug:
+            self.slug = get_random_string(length=8)
         print(f'Compression ended [{self.cover_image.name}][{original_size}][{compressed_size}][{compressed_size-original_size}]')
         super().save(*args, **kwargs)
 
