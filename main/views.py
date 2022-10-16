@@ -63,6 +63,7 @@ def main_page(request):
         'new_song': Song.objects.latest(),
         'choosen_for_you': sample(list(Song.objects.all()), 5),
         'discover_new_artists': sample(list(Author.objects.all()), 5),
+        'top_songs': Song.objects.order_by('-number_of_plays').all(),
         'motd': choice(MOTD_TEXT),
     }
     return render(request, template_name='main/main_page.html', context=context_dir)
@@ -86,7 +87,7 @@ class AllSongsPage(ListView):
     template_name = 'main/all_songs_page.html'
     context_object_name = 'list'
 
-class SongPage(LoginRequiredMixin,DetailView):
+class SongPage(DetailView):
     model = Song
     template_name = 'main/song_page.html'
     slug_field = 'slug'

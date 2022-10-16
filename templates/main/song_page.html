@@ -6,43 +6,52 @@
 {% endblock %}
 
 {% block page_content %}
+    <audio id="player" preload="metadata">
+        <source src="{{ song.music_file.url }}" type="audio/mp3">
+    </audio>
     <div id='background' class="container-fluid text-light bg-dark p-0"
          style="background-image: url({{ song.cover_image.url }}); background-size: cover; background-position: center">
-        <div class="container-fluid p-5" style="backdrop-filter: blur(5px) brightness(50%)">
+        <div class="container-fluid p-5" style="backdrop-filter: blur(3px) brightness(50%)">
             <div class="container">
                 <div class="row justify-content-center align-items-center gx-5 gy-3">
                     <div class="col-md-4 text-center">
-                        <img src="{{ song.cover_image.url }}" class="img-fluid shadow">
+                        <img id="cover" src="{{ song.cover_image.url }}" class="img-fluid shadow">
                     </div>
                     <div class="col-md-8">
                         <p class="display-1 fw-semibold lh-1">{{ song.title }}</p>
                         <a class='text-reset text-decoration-none'
                            href="{% url 'author_page' slug=song.author.first.slug %}"><p
                                 class="fs-3 fw-semibold">{{ song.author.first.name }}</p></a>
-                        <audio id="player" controls preload="auto" style="width: 100%">
-                            <source src="{{ song.music_file.url }}" type="audio/mp3">
-                            Your browser does not support the audio element.
-                        </audio>
+                        {% if user.is_authenticated %}
+                            <div class="row player-wrapper">
+                                <span class="p-0"><i id="btn-play" class="bi bi-play-fill"></i></span>
+                                <input type="range" class="form-range" value="0" id="range" min="0" max="1"
+                                       step="0.005">
+                            </div>
+                        {% else %}
+                            <p class="fs-1">Sign in to play this music.</p>
+                            <a href="{% url 'LoginPage' %}" class="btn btn-light btn-lg">Sign in</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class='container'>
-        <div class="row mt-5">
+        <div class="row mt-5 gy-2">
             <div class="col-md-6">
                 {% if not song.lyrics %}
                     <p class="fs-1"><i class="bi bi-x"></i>Brak tekstu dla tego utworu</p>
                 {% else %}
-                    <p class="fs-1"><i class="bi bi-blockquote-left"></i>Lyrics:</p>
+                    <p class="fs-1 border-bottom"><i class="bi bi-blockquote-left"></i>Lyrics:</p>
                 {% endif %}
-                <p>
+                <p class="fs-6">
                     {{ song.lyrics | safe | linebreaks }}
                 </p>
             </div>
             <div class="col-md-6">
-                <p class="fs-1">About this song</p>
-                <p class="fs-5">
+                <p class="fs-1 border-bottom">About this song</p>
+                <p class="fs-6">
                     Authors:
                     <br>
                     {% for author in song.author.all %}
@@ -57,20 +66,55 @@
             </div>
         </div>
         <div class="row gy-2">
-                <p class="fs-1">Up next</p>
-                {% include 'main/includes/song-list.html' with songs=up_next%}
+            <p class="fs-1 border-bottom">Up next</p>
+            {% include 'main/includes/song-list.html' with songs=up_next %}
         </div>
     </div>
 {% endblock %}
 
 {% block page_custom_js %}
+    <script src="{% static 'main/js/Vibrant.min.js' %}"></script>
     <script>
-        var player = document.getElementById("player");
-        var bg = document.getElementById("background")
-        player.onplay = function () {
+        var player = new Audio();
+        player.preload = "metadata";
+        player.src = "{{ song.music_file.url }}";
+        var range = document.getElementById("range");
+        var btn_play = document.getElementById("btn-play");
+        var playing = false;
+        btn_play.onclick = function () {
+            if (playing) {
+                player.pause();
+                btn_play.classList.remove("bi-pause-fill");
+                btn_play.classList.add("bi-play-fill");
+                console.log("Pause");
+                playing = false;
+            } else {
+                console.log('Play');
+                player.play();
+                btn_play.classList.remove("bi-play-fill");
+                btn_play.classList.add("bi-pause-fill");
+                playing = true;
+            }
+        }
+        player.ontimeupdate = function () {
+            var time = this.currentTime / this.duration;
+            console.log(time);
+            range.value = time;
+        }
+        range.onchange = function () {
+            player.currentTime = range.value * player.duration;
+        }
 
-        };
-        player.onpause = function () {
-        };
+        var cover_image = new Image();
+        cover_image.src = "{{ song.cover_image.url }}";
+        cover_image.onload = function () {
+            var vibrant = new Vibrant(cover_image);
+            var swatches = vibrant.swatches()
+            for (var swatch in swatches)
+                if (swatches.hasOwnProperty(swatch) && swatches[swatch])
+                    console.log(swatch, swatches[swatch].getHex())
+            document.getElementById("logo").style.transitionDuration = "2s";
+            document.getElementById("logo").style.color = swatches["LightVibrant"].getHex();
+        }
     </script>
 {% endblock %}
