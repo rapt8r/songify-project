@@ -40,7 +40,7 @@
         <div class="row">
             <p class="display-4 fw-semibold">Chosen for you</p>
         </div>
-        <div class="row gy-2 justify-content-center justify-content-md-start">
+        <div class="row flex-row flex-nowrap overflow-auto">
             {% for song in choosen_for_you %}
                 {% include 'main/includes/song-small-card.html' %}
             {% endfor %}
@@ -51,7 +51,7 @@
         <div class="row">
             <p class="display-4 fw-semibold">Discover artists</p>
         </div>
-        <div class="row gy-2 justify-content-center justify-content-md-start">
+        <div class="row flex-row flex-nowrap overflow-auto" style="touch-action: pan-x;">
             {% for author in discover_new_artists %}
                 {% include 'main/includes/author-small-card.html' %}
             {% endfor %}
