@@ -6,12 +6,9 @@
 {% endblock %}
 
 {% block page_content %}
-    <audio id="player" preload="metadata">
-        <source src="{{ song.music_file.url }}" type="audio/mp3">
-    </audio>
     <div id='background' class="container-fluid text-light bg-dark p-0"
          style="background-image: url({{ song.cover_image.url }}); background-size: cover; background-position: center">
-        <div class="container-fluid p-5" style="backdrop-filter: blur(3px) brightness(50%)">
+        <div class="container-fluid p-5" style="backdrop-filter: blur(5px) brightness(50%)">
             <div class="container">
                 <div class="row justify-content-center align-items-center gx-5 gy-3">
                     <div class="col-md-4 text-center">
@@ -23,13 +20,16 @@
                            href="{% url 'author_page' slug=song.author.first.slug %}"><p
                                 class="fs-3 fw-semibold" id="author">{{ song.author.first.name }}</p></a>
                         {% if user.is_authenticated %}
+                            <div id="loader" class="spinner-border" role="status">
+                            </div>
+                            <!-- Player -->
                             <div id="player-wrapper" class="d-none">
                                 <div class="row">
                                     <div class="col fs-1">
                                         <i id="btn-play" class="bi bi-play-fill d-inline"></i>
                                     </div>
                                     <div class="col align-items-center justify-content-end d-none d-sm-flex">
-                                        <label for="volume-bar"><i class="bi fs-3 bi-volume-up-fill"></i></label>
+                                        <label for="volume-bar"><i id="btn-mute" class="bi fs-3 bi-volume-up-fill"></i></label>
                                         <input id="volume-bar" style="width: 50%" type="range" class="progress mx-2"
                                                value="1" min="0"
                                                max="1" step="0.005">
@@ -46,7 +46,7 @@
                             </div>
                         {% else %}
                             <p class="fs-1">Sign in to play this music.</p>
-                            <<a href="{% url 'LoginPage' %}" class="btn btn-light btn-lg">Sign in</a>
+                            <a href="{% url 'LoginPage' %}" class="btn btn-light btn-lg">Sign in</a>
                         {% endif %}
                     </div>
                 </div>
@@ -91,78 +91,113 @@
 {% block page_custom_js %}
     <script src="{% static 'main/js/Vibrant.min.js' %}"></script>
     <script>
-        //Create audio object
-        var player = new Audio();
-        player.preload = "metadata";
-        player.src = "{{ song.music_file.url }}";
-        player.volume = 1;
-        //Do this when metadata is loaded
-        player.onloadedmetadata = function () {
-            console.log("Metadata loaded")
-            //Set the duration label
-            document.getElementById("duration").innerHTML = new Date(player.duration * 1000).toISOString().substring(14, 19)
-            document.getElementById("player-wrapper").classList.remove("d-none")
-        }
-
-
         var range = document.getElementById("progress-bar");
         var volume_bar = document.getElementById("volume-bar")
         var btn_play = document.getElementById("btn-play");
+        var btn_mute = document.getElementById("btn-mute");
         var current_time = document.getElementById(("current-time"));
+        var player_wrapper = document.getElementById("player-wrapper");
+        var loader = document.getElementById("loader");
         var playing = false;
+        var muted = false;
 
-        btn_play.onclick = function () {
-            if (playing) {
-                player.pause();
-                btn_play.classList.remove("bi-pause-fill");
-                btn_play.classList.add("bi-play-fill");
-                console.log("Pause");
-                playing = false;
-            } else {
-                console.log('Play');
-                player.play();
-                btn_play.classList.remove("bi-play-fill");
-                btn_play.classList.add("bi-pause-fill");
-                playing = true;
+        window.onload = function () {
+            console.log("Page loaded")
+
+
+            //Create audio object
+            var player = new Audio();
+            player.preload = "metadata";
+            player.src = "{{ song.music_file.url }}";
+            player.volume = 1;
+
+
+            //Do this when metadata is loaded
+            player.onloadedmetadata = function () {
+                console.log("Metadata loaded")
+                //Set the duration label
+                document.getElementById("duration").innerHTML = new Date(player.duration * 1000).toISOString().substring(14, 19)
+                loader.classList.add("d-none");
+                player_wrapper.classList.remove("d-none");
             }
-        }
-        player.ontimeupdate = function () {
-            //Calculate the percentage of song
-            var percent = this.currentTime / this.duration;
-            range.value = percent;
-            var s = parseInt(player.currentTime % 60);
-            if (s < 10) {
-                s = '0' + s;
+
+            //Player controls
+            btn_play.onclick = function () {
+                if (playing) {
+                    player.pause();
+                    btn_play.classList.remove("bi-pause-fill");
+                    btn_play.classList.add("bi-play-fill");
+                    console.log("Pause");
+                    playing = false;
+                } else {
+                    console.log('Play');
+                    player.play();
+                    btn_play.classList.remove("bi-play-fill");
+                    btn_play.classList.add("bi-pause-fill");
+                    playing = true;
+                }
             }
-            var m = parseInt((player.currentTime / 60) % 60);
-            document.getElementById("current-time").innerHTML = m + ":" + s;
-        }
-        //Skip part of a song
-        range.onchange = function () {
-            player.currentTime = range.value * player.duration;
-        }
-        //Volume change
-        volume_bar.onchange = function () {
-            player.volume = this.value;
-        }
-        //Logo color change
-        var cover_image = new Image();
-        cover_image.src = "{{ song.cover_image.url }}";
-        cover_image.onload = function () {
-            var vibrant = new Vibrant(cover_image);
-            var swatches = vibrant.swatches()
-            for (var swatch in swatches)
-                if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-                    console.log(swatch, swatches[swatch].getHex())
-            document.getElementById("logo").style.transitionDelay = "1s";
-            document.getElementById("logo").style.transitionDuration = "1.5s";
-            document.getElementById("logo").style.color = swatches["LightVibrant"].getHex();
-            document.getElementById("title").style.transitionDelay = "1s";
-            document.getElementById("title").style.transitionDuration = "1.5s";
-            document.getElementById("title").style.color = swatches["LightVibrant"].getHex();
-            document.getElementById("author").style.transitionDelay = "1s";
-            document.getElementById("author").style.transitionDuration = "1.5s";
-            document.getElementById("author").style.color = swatches["LightVibrant"].getHex();
+
+            //Player slider
+            player.ontimeupdate = function () {
+                //Calculate the percentage of song
+                var percent = this.currentTime / this.duration;
+                range.value = percent;
+                var s = parseInt(player.currentTime % 60);
+                if (s < 10) {
+                    s = '0' + s;
+                }
+                var m = parseInt((player.currentTime / 60) % 60);
+                document.getElementById("current-time").innerHTML = m + ":" + s;
+            }
+            //Skip part of a song
+            range.onchange = function () {
+                console.log("Song skipped to - " + range.value * player.duration);
+                player.currentTime = range.value * player.duration;
+            }
+            //Volume change
+            volume_bar.onchange = function () {
+                player.volume = this.value;
+            }
+            //Mute button
+            btn_mute.onclick = function() {
+                if (muted) {
+                    player.volume = 1;
+                    volume_bar.value = 1;
+                    muted = false;
+                    btn_mute.classList.remove("bi-volume-mute-fill");
+                    btn_mute.classList.add("bi-volume-up-fill");
+                }
+                else {
+                    player.volume = 0;
+                    volume_bar.value = 0;
+                    muted = true;
+                    btn_mute.classList.remove("bi-volume-up-fill");
+                    btn_mute.classList.add("bi-volume-mute-fill");
+                }
+            }
+            //Logo color change
+            var cover_image = new Image();
+            cover_image.src = "{{ song.cover_image.url }}";
+            cover_image.onload = function () {
+                var vibrant = new Vibrant(cover_image);
+                var swatches = vibrant.swatches()
+                {#for (var swatch in swatches)#}
+                {#    if (swatches.hasOwnProperty(swatch) && swatches[swatch])#}
+                {#        console.log(swatch, swatches[swatch].getHex())#}
+                document.getElementById("logo").style.transitionDelay = "1s";
+                document.getElementById("logo").style.transitionDuration = "1.5s";
+                document.getElementById("logo").style.transitionProperty = "color";
+                document.getElementById("logo").style.color = swatches["LightVibrant"].getHex();
+                document.getElementById("title").style.transitionDelay = "1s";
+                document.getElementById("title").style.transitionDuration = "1.5s";
+                document.getElementById("title").style.transitionProperty = "color";
+                document.getElementById("title").style.color = swatches["LightVibrant"].getHex();
+                document.getElementById("author").style.transitionDelay = "1s";
+                document.getElementById("author").style.transitionDuration = "1.5s";
+                document.getElementById("author").style.transitionProperty = "color";
+                document.getElementById("author").style.color = swatches["LightVibrant"].getHex();
+            }
         }
     </script>
 {% endblock %}

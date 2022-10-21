@@ -61,7 +61,7 @@ def main_page(request):
     context_dir = {
         'new_song_label': choice(NEW_SONG_LABEL),
         'new_song': Song.objects.latest(),
-        'choosen_for_you': sample(list(Song.objects.all()), 5),
+        'choosen_for_you': sample(list(Song.objects.all()), 6),
         'discover_new_artists': sample(list(Author.objects.all()), 5),
         'top_songs': Song.objects.order_by('-number_of_plays').all(),
         'motd': choice(MOTD_TEXT),
