@@ -6,26 +6,30 @@
 {% endblock %}
 
 {% block page_content %}
-    <div id='background' class="container-fluid text-light bg-dark p-0"
-         style="background-image: url({{ song.cover_image.url }}); background-size: cover; background-position: center">
-        <div class="container-fluid p-5" style="backdrop-filter: blur(5px) brightness(50%)">
+    <div class="container-fluid text-light bg-dark p-0"
+         style="background-image: url({{ song.cover_image.url }}); background-size: cover; background-position: center;">
+        <div id='background' class="container-fluid p-5"
+             style="backdrop-filter: blur(7px) brightness(60%); transition-duration: 500ms">
             <div class="container">
                 <div class="row justify-content-center align-items-center gx-5 gy-3">
                     <div class="col-md-4 text-center">
                         <img id="cover" src="{{ song.cover_image.url }}" class="img-fluid shadow">
                     </div>
+                    <!-- Song header, title and author -->
                     <div class="col-md-8">
                         <p id="title" class="display-1 fw-semibold lh-1">{{ song.title }}</p>
                         <a class='text-reset text-decoration-none'
                            href="{% url 'author_page' slug=song.author.first.slug %}"><p
                                 class="fs-3 fw-semibold" id="author">{{ song.author.first.name }}</p></a>
                         {% if user.is_authenticated %}
+                            <!-- Spinner -->
                             <div id="loader" class="spinner-border" role="status">
                             </div>
                             <!-- Player -->
                             <div id="player-wrapper" class="d-none">
                                 <div class="row">
                                     <div class="col fs-1">
+                                        <i id="btn-start" class="bi bi-skip-start-fill"></i>
                                         <i id="btn-play" class="bi bi-play-fill d-inline"></i>
                                     </div>
                                     <div class="col align-items-center justify-content-end d-none d-sm-flex">
@@ -67,13 +71,15 @@
             </div>
             <div class="col-md-6">
                 <p class="fs-1 border-bottom">About this song</p>
-                <p class="fs-6">
+                <p class="fs-5">
                     Authors:
                     <br>
+                        <div class="fs-4">
                     {% for author in song.author.all %}
                         <a class='text-reset text-decoration-none' href="{% url 'author_page' slug=author.slug %}"><img
                                 src="{{ author.profile_picture.url }}" class="rounded-50 p-1"
-                                style="max-height: 48px"> {{ author.name }}</a><br>
+                                style="max-height: 64px"> {{ author.name }}</a><br>
+                        </div>
                     {% endfor %}
                     Category: {{ song.category.first.name }}
                     <br>
@@ -91,19 +97,17 @@
 {% block page_custom_js %}
     <script src="{% static 'main/js/Vibrant.min.js' %}"></script>
     <script>
-        var range = document.getElementById("progress-bar");
-        var volume_bar = document.getElementById("volume-bar")
-        var btn_play = document.getElementById("btn-play");
-        var btn_mute = document.getElementById("btn-mute");
-        var current_time = document.getElementById(("current-time"));
-        var player_wrapper = document.getElementById("player-wrapper");
-        var loader = document.getElementById("loader");
-        var playing = false;
-        var muted = false;
-
         window.onload = function () {
             console.log("Page loaded")
-
+            const range = document.getElementById("progress-bar");
+            const volume_bar = document.getElementById("volume-bar");
+            const btn_play = document.getElementById("btn-play");
+            const btn_mute = document.getElementById("btn-mute");
+            const btn_start = document.getElementById("btn-start");
+            const player_wrapper = document.getElementById("player-wrapper");
+            const loader = document.getElementById("loader");
+            let playing = false;
+            let muted = false;
 
             //Create audio object
             var player = new Audio();
@@ -125,6 +129,7 @@
             btn_play.onclick = function () {
                 if (playing) {
                     player.pause();
+                    //Change icon
                     btn_play.classList.remove("bi-pause-fill");
                     btn_play.classList.add("bi-play-fill");
                     console.log("Pause");
@@ -132,13 +137,35 @@
                 } else {
                     console.log('Play');
                     player.play();
+                    //Change icon
                     btn_play.classList.remove("bi-play-fill");
                     btn_play.classList.add("bi-pause-fill");
                     playing = true;
                 }
             }
+            //Mute button
+            btn_mute.onclick = function () {
+                if (muted) {
+                    player.volume = 1;
+                    volume_bar.value = 1;
+                    muted = false;
+                    btn_mute.classList.remove("bi-volume-mute-fill");
+                    btn_mute.classList.add("bi-volume-up-fill");
+                } else {
+                    player.volume = 0;
+                    volume_bar.value = 0;
+                    muted = true;
+                    btn_mute.classList.remove("bi-volume-up-fill");
+                    btn_mute.classList.add("bi-volume-mute-fill");
+                }
+            }
+            //Skip to start button
+            btn_start.onclick = function() {
+                player.currentTime = 0;
+                range.value = 0;
+            }
 
-            //Player slider
+            //Player slider update
             player.ontimeupdate = function () {
                 //Calculate the percentage of song
                 var percent = this.currentTime / this.duration;
@@ -159,25 +186,8 @@
             volume_bar.onchange = function () {
                 player.volume = this.value;
             }
-            //Mute button
-            btn_mute.onclick = function() {
-                if (muted) {
-                    player.volume = 1;
-                    volume_bar.value = 1;
-                    muted = false;
-                    btn_mute.classList.remove("bi-volume-mute-fill");
-                    btn_mute.classList.add("bi-volume-up-fill");
-                }
-                else {
-                    player.volume = 0;
-                    volume_bar.value = 0;
-                    muted = true;
-                    btn_mute.classList.remove("bi-volume-up-fill");
-                    btn_mute.classList.add("bi-volume-mute-fill");
-                }
-            }
             //Logo color change
-            var cover_image = new Image();
+            const cover_image = document.getElementById("cover");
             cover_image.src = "{{ song.cover_image.url }}";
             cover_image.onload = function () {
                 var vibrant = new Vibrant(cover_image);
