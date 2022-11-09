@@ -44,14 +44,17 @@ class Author(models.Model):
         return self.name
 
 
+def file_path(instance, filename):
+     return f'{instance.title}/{filename}'
+
 class Song(models.Model):
     title = models.CharField(max_length=64)
     slug = models.SlugField(max_length=8, blank=True)
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Category)
     number_of_plays = models.PositiveIntegerField(default=0)
-    cover_image = models.ImageField(upload_to='song_cover_images/')
-    music_file = models.FileField(upload_to='song_files')
+    cover_image = models.ImageField(upload_to=file_path)
+    music_file = models.FileField(upload_to=file_path)
     lyrics = models.TextField()
 
     def save(self, *args, **kwargs):
